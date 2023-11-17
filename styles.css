@@ -1,0 +1,13 @@
+QProgressBar {
+    border: 2px solid black;
+    border-radius: 1px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #05B8CC;
+    width: 20px;
+}
+#minimize_button{
+    background-color: #05B8CC;
+}
