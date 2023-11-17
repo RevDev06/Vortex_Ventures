@@ -3,7 +3,6 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidget, QPushButton, QVBoxLayout, QLabel, QStackedWidget
 
-
 class Puesto(QWidget):
     def __init__(self):
         super(Puesto, self).__init__()
@@ -14,18 +13,14 @@ class Puesto(QWidget):
     def generar(self):
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(self.fila)
-        self.tableWidget.setColumnCount(self.columna)
+        self.tableWidget.setColumnCount(self.columna)  
         self.tableWidget.setGeometry(0, 30, 30, 50)
 
-        self.tableWidget.setStyleSheet(
-            "QTableWidget { background-color: black; }")
-        self.tableWidget.setStyleSheet(
-            "QTableWidget::item { border: .2px solid black; }")
-        column_width = 144
+        
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setVisible(False)
-        for i in range(self.columna):
-            self.tableWidget.setColumnWidth(i, column_width)
+        
+        self.tableWidget.setColumnWidth(self.fila, self.columna)
 
         agregar = QPushButton()
         agregar.setText('Agregar Puesto')
@@ -40,19 +35,17 @@ class Puesto(QWidget):
         self.tableWidget.setRowCount(self.fila)
 
         puesto = QLabel('Pulse editar')
-        puesto.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.tableWidget.setCellWidget(self.fila - 1, 0, puesto)
+        puesto.setAlignment(Qt.AlignmentFlag.AlignCenter)           
+        self.tableWidget.setCellWidget(self.fila - 1, 1, puesto)
 
         detalles = QPushButton('Detalles')
         self.tableWidget.setCellWidget(self.fila - 1, 1, detalles)
 
         self.editar = QPushButton('Editar')
-        self.tableWidget.setCellWidget(self.fila - 1, 2, self.editar)
-        # Connect the clicked signal here
-        self.editar.clicked.connect(self.parent().cambio_a_editar)
-
+        self.tableWidget.setCellWidget(self.fila - 1, 1, self.editar)
+            
         borrar = QPushButton('Borrar')
-        self.tableWidget.setCellWidget(self.fila - 1, 3, borrar)
+        self.tableWidget.setCellWidget(self.fila - 1, 1, borrar)
         borrar.clicked.connect(self.borra)
 
     def borra(self):
@@ -62,7 +55,6 @@ class Puesto(QWidget):
             self.tableWidget.removeRow(fila)
             self.fila -= 1
 
-
 class Puesto2(QWidget):
     def __init__(self):
         super(Puesto2, self).__init__()
@@ -70,10 +62,9 @@ class Puesto2(QWidget):
         self.regreso = QPushButton('Regresar')
         layout.addWidget(self.regreso)
 
-
-class Ventana(QMainWindow):
+class Window(QMainWindow):   
     def __init__(self):
-        super(Ventana, self).__init__()
+        super(Window, self).__init__()
         self.ventana_widget = QStackedWidget(self)
         self.puesto = Puesto()
         self.puesto2 = Puesto2()
@@ -89,6 +80,7 @@ class Ventana(QMainWindow):
         self.conexion()
 
     def conexion(self):
+        self.puesto.editar.clicked.connect(self.cambio_a_editar)
         self.puesto2.regreso.clicked.connect(self.cambio_a_puesto)
 
     def cambio_a_editar(self):
@@ -97,9 +89,8 @@ class Ventana(QMainWindow):
     def cambio_a_puesto(self):
         self.ventana_widget.setCurrentWidget(self.puesto)
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ventana = Ventana()
+    ventana = Window()
     ventana.show()
     sys.exit(app.exec())

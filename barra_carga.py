@@ -8,7 +8,14 @@ class Window(QWidget):
         super().__init__()
         # Remove window frame
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        self.resize(320, 250)
+        
+            # Calculate the position of the window in the center
+        screen_geometry = QApplication.primaryScreen().availableGeometry()
+        window_width = 600
+        window_height = 800
+        window_x = (screen_geometry.width() - window_width) // 2
+        window_y = (screen_geometry.height() - window_height) // 2
+        self.setGeometry(window_x, window_y, window_width, window_height)
 
         self.prog_bar = QProgressBar(self)
         self.prog_bar.setGeometry(50, 50, 250, 30)
