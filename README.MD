@@ -1,16 +1,18 @@
 # Mi Proyecto
 
 Descripcion del proyecto
+RELLENAR ESTO
 
 ## Instalación
 
 1. Clona el repositorio.
 2. Ejecuta `npm install` para instalar las dependencias.
 3. Ejecuta `npm start` para iniciar la aplicación.
+   INVESTIGAR Y RELLENAR ESTO
 
 ## Uso
 
-Aquí puedes proporcionar ejemplos de cómo utilizar tu proyecto.
+RELLENAR ESTO
 
 ## Contribución
 
@@ -23,4 +25,3 @@ Si deseas contribuir a este proyecto, sigue estos pasos:
 5. Abre una pull request.
 
 ## Licencia
-
