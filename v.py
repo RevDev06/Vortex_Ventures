@@ -14,7 +14,7 @@ class vv(QWidget):
 
     def inicializarUI(self):
         # configurar ventana
-        self.setGeometry(100, 50, 1000, 1000)
+        self.setGeometry(100, 50, 1000, 800)
         self.setWindowTitle("Requisicion")
         self.generar_formulario()
         self.show()  # visualice la ventana

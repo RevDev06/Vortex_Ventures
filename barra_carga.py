@@ -8,8 +8,8 @@ class Window(QWidget):
         super().__init__()
         # Remove window frame
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        
-            # Calculate the position of the window in the center
+
+        # Calculate the position of the window in the center
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 600
         window_height = 800
@@ -29,7 +29,6 @@ class Window(QWidget):
         self.close_button.setGeometry(250, 10, 60, 30)
 
         self.minimize_button = QPushButton("Minimize", self)
-
         self.minimize_button.setObjectName("minimize_button")
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(180, 10, 60, 30)

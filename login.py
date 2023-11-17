@@ -12,7 +12,7 @@ class LoginScreen(QMainWindow):
         
         # Calculate the position of the window in the center
         screen_geometry = QApplication.primaryScreen().availableGeometry()
-        window_width = 600
+        window_width = 1000
         window_height = 800
         window_x = (screen_geometry.width() - window_width) // 2
         window_y = (screen_geometry.height() - window_height) // 2
