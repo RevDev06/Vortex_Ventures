@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS `db_poo`.`candidatos` (
   `a_paterno` VARCHAR(50) NOT NULL,
   `num_telefono` VARCHAR(20) NOT NULL,
   `edad` INT(3) NOT NULL,
+  `correo_electronico` varchar(50) not null,
+  `direccion` varchar(200) not null,
   `puesto_id` INT(5) NOT NULL,
   `carrera_id` INT(5) NOT NULL,
   `g_avance_id` INT(5) NOT NULL,
