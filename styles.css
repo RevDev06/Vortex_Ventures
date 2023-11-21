@@ -30,10 +30,12 @@ QRadioButton::indicator:checked{
     height: 15px;
     border-radius: 7px;
 }
-
-
 QComboBox {
-    background-color: #C5AFB1;
+    background-color: #CBBEB6;
     color : #5c526a;
     border: 1px solid #EBEBEB;
+}
+QPushButton {
+    background-color: #4A6961;
+    color: whitesmoke;
 }
