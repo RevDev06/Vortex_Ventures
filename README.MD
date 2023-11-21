@@ -1,4 +1,4 @@
-#Proyecto Transversal vortex ventures
+# Proyecto Transversal vortex ventures
  
 Descripcion del proyecto
 Se quiere hacer una página que tenga una base de datos para los de la carrera de recursos humanos la cual requiere de cuatro cosas principales: 
