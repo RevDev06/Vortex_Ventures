@@ -46,7 +46,7 @@ class LoginScreen(QMainWindow):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.password_feedback = QLabel("", self)
-        self.password_feedback.setGeometry(380, 400, 300, 30)
+        self.password_feedback.setGeometry(470, 400, 300, 30)
 
         self.login_button = QPushButton("Login", self)
         self.login_button.setGeometry(500, 500, 100, 30)
@@ -63,37 +63,34 @@ class LoginScreen(QMainWindow):
     def login(self):
         username = self.username_input.text()
         password = self.password_input.text()
-        sql = "SELECT contraseña, rol FROM usuarios WHERE nombre_usuario = %s"
-        con_db.cursor.execute(sql, (username,))  # type: ignore
-        result = con_db.cursor.fetchone()  # type: ignore
+        sql = "SELECT contrasenia, nombre FROM usuarios WHERE nombre = %s"
+        con_db.cursor.execute(sql, (username,))  
+        result = con_db.cursor.fetchone()  
+        
+        db_password = result[0]
+        user = result[1]
 
         if result is None:
             print("Nombre de usuario incorrecto. Vuelve a intentarlo")
             self.username_feedback.setText(
                 "Nombre de usuario incorrecto. Vuelve a intentarlo")
         else:
-            hashed_password = result[0]
-            role = result[1]
-            if check_password_hash(hashed_password, password):
-
-                if role == "admin":
-                    print(username)
-                    # print("¡Bienvenido administrador!")
-                    # menu_home()  # Se pasa el valor de 'role' a la función menu_home()
-                else:
-                    print(username)
-                    # menu_home()
-                # Registrar en el historial
-                # registrar_historial(f"Inicio de sesión", username)
-                return True
+            if password == db_password:
+                print("Bienvenido")
+                self.username_feedback.setText("Usuario correcto")
+                self.password_feedback.setText("Contraseña correcta")
+                # self.home_window = HomeWindow()
+                # self.home_window.show()
             else:
                 self.password_feedback.setText("Contraseña incorrecta.")
+                print("Acesso denegado")
         return False
 
 
 def main():
     app = QApplication(sys.argv)
     login_screen = LoginScreen()
+    
     login_screen.show()
     sys.exit(app.exec())
 
