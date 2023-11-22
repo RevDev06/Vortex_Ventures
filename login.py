@@ -65,9 +65,9 @@ class LoginScreen(QMainWindow):
         username = self.username_input.text()
         password = self.password_input.text()
         sql = "SELECT contrasenia, nombre FROM usuarios WHERE nombre = %s"
-        con_db.cursor.execute(sql, (username,))  
-        result = con_db.cursor.fetchone()  
-        
+        con_db.cursor.execute(sql, (username,))
+        result = con_db.cursor.fetchone()
+
         db_password = result[0]
         user = result[1]
 
@@ -91,7 +91,7 @@ class LoginScreen(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     login_screen = LoginScreen()
-    
+
     login_screen.show()
     sys.exit(app.exec())
 

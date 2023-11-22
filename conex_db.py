@@ -1,8 +1,11 @@
 import mysql.connector
 
+
 class database:
 
     def __init__(self):
+        self.db = None
+        self.cursor = None
         self.db = None
         self.cursor = None
 
@@ -13,7 +16,7 @@ class database:
                 password='',
                 db='db_poo'
             )
-            
+
             self.cursor = self.db.cursor()
 
             if self.db.is_connected():
@@ -22,11 +25,12 @@ class database:
         except Exception as ex:
             print(ex)
             print("Error en la conexión a la base de datos")
-        
+
     def close_conex(self):
         if self.cursor:
             self.cursor.close()
         if self.db:
             self.db.close()
+
 
 db = database()
