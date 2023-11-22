@@ -10,9 +10,10 @@ db_name = 'db_poo'
 class database:
 
     db = None
-    cursos = None
+    cursor = None
 
     def __init__(self):
+        global cursor
 
         try:
             db = mysql.connector.connect(
