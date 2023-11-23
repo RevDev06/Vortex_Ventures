@@ -6,10 +6,11 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import QSize,Qt,QLocale,QDateTime
 ##crear una ventana
 
-class v(QWidget):
+class vtn(QWidget):
     def __init__(self):
         super().__init__()
         self.inicializarUI()
+
 
     def inicializarUI(self):
         #configurar ventana
@@ -201,11 +202,14 @@ class v(QWidget):
        inicio_vacante.setTime(inicio_vacante.time())
 ##se hacen subclases diferentes de actualizar año ya que cada calendario tiene diferente funcion, al no tener la misma fecha , la seleccion es de direntes fechas
 ##si se pone en una sola clase todos no se podran cambiar las fechas en todas las barras se pondra la misma fecha por eso se hacen en diferentes subclases pero la misma funcion 
+    def mostrar_ventana(self):
+        print("Mostrar vtn")
+
 if __name__ == '__main__':
    with open('styles.css', 'r') as f:
         style = f.read()
 
    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
    app.setStyleSheet(style)    
-   ventana = v()
+   ventana = vtn()
    sys.exit(app.exec())#salir
