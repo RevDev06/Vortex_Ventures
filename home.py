@@ -1,10 +1,11 @@
 import sys
-from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QLineEdit, QPushButton,QDateTimeEdit,
-QMessageBox,QComboBox,QRadioButton,QStackedWidget,QMainWindow)
-from PyQt6.QtGui import QFont,QAction
-from PyQt6.QtCore import QSize,Qt,QLocale,QDateTime 
+from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QMainWindow)#type: ignore
+from PyQt6.QtGui import QFont,QAction#type: ignore
+from PyQt6.QtCore import pyqtSignal#type: ignore
+from ventana1 import vtn 
 
 class HomeWindow(QMainWindow):
+    abrrir_ventana = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Home")
@@ -63,14 +64,27 @@ class HomeWindow(QMainWindow):
         file_id.addAction(action1)
         file_mp.addAction(action1)
         file_s.addAction(action1)
+        
+        self.abrir_v.connect(vtn.mostrar_ventana)
+        action_requisicion = QAction(self)
+        action_requisicion.triggered.connect(self.emitir_senhal)
+        file_contratacion.addAction(action_requisicion)
+
 
     def redirect_to_window(self):
         # Logica para enviar a otras ventanas
-        pass
-
+        self.abrir_ventana.emit()
+        def emitir_senhal(self):
+           self.senhal.emit()
+           self.abrir_ventana.emit()
+           print('se ha presionado el boton')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     home_window = HomeWindow()
+    vtn=vtn()
+    app =QApplication()
+    home_window.abrir_ventana.connect(vtn.mostrar_ventana)
     home_window.show()
     sys.exit(app.exec())
+    
