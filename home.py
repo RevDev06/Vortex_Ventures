@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QMainWindow)#type: ign
 from PyQt6.QtGui import QFont,QAction#type: ignore
 from PyQt6.QtCore import pyqtSignal#type: ignore
 from requisicion import vtn 
+from analisis import v
 
 class HomeWindow(QMainWindow):
     abrir_ventana = pyqtSignal()
@@ -20,57 +21,73 @@ class HomeWindow(QMainWindow):
         self.company_name.setGeometry(20, 30, 120, 20)
         self.create_navigation_bar()
 
+
     def create_navigation_bar(self):
-##button
-        navigation_bar = self.addToolBar("Navigation Bar")
-        action = QAction(self)
-        action.triggered.connect(self.redirect_to_window)
-        action.setCheckable(True)
-        navigation_bar.addAction(action)
-
-        action1 = QAction(self)
-        action1.triggered.connect(self.redirect_to_window)
-        action1.setCheckable(True)
-        navigation_bar.addAction(action1)
+        menu_bar = self.menuBar()
+        menu_bar.move(50,50)
 ##nombre de la barra
-        cn = self.menuBar()
-        file_contratacion = cn.addMenu("&Contratación")
-        file_puesto=file_contratacion.addMenu("PUESTO")
-        file_re=file_contratacion.addMenu("REQUISICION")
-        file_aut=file_contratacion.addMenu("AUTORIZACION")
-        file_vct=file_contratacion.addMenu("VACANTES")
-        file_can=file_contratacion.addMenu("CANDIDATOS")
-        file_puesto.addAction(action)
-        file_re.addAction(action)
-        file_aut.addAction(action)
-        file_vct.addAction(action)
-        file_can.addAction(action)
-        file_ventas = cn.addMenu("&Catalogos")
-        file_a=file_ventas.addMenu("AREA")
-        file_cr=file_ventas.addMenu("CARRERA")
-        file_e=file_ventas.addMenu("ESCOLORIDAD")
-        file_ec=file_ventas.addMenu("ESTADO CIVIL")
-        file_ga=file_ventas.addMenu("GRADO DE AVANCE")
-        file_hb=file_ventas.addMenu("HABILIDADES")
-        file_id=file_ventas.addMenu("IDIOMA")
-        file_mp=file_ventas.addMenu("MEDIO DE PUBLICIDAD")
-        file_s=file_ventas.addMenu("DOCUMENTOS SOLICITADOS")
-        file_a.addAction(action1)
-        file_cr.addAction(action1)
-        file_e.addAction(action1)
-        file_ec.addAction(action1)
-        file_ga.addAction(action1)
-        file_hb.addAction(action1)
-        file_id.addAction(action1)
-        file_mp.addAction(action1)
-        file_s.addAction(action1)
+        file_contratacion = menu_bar.addMenu("&Contratación")
+##puesto
+        action_p =QAction("&PUESTO",self)
+        action_p.triggered.connect(self.redirect_to_window)
+        file_contratacion.addMenu("action_p")
+##requisicion
+        action_requisicion = QAction("&REQUISICION",self)
+        action_requisicion.triggered.connect(self.requisicion)
+        file_contratacion.addAction(action_requisicion)
+##antorizacion
+        action_aut = QAction("&AUTORIZACION",self)
+        action_aut.triggered.connect(self.redirect_to_window)
+        file_contratacion.addAction(action_aut)
+##vacantes
+        action_vac = QAction("&VACANTES",self)
+        action_vac.triggered.connect(self.redirect_to_window)
+        file_contratacion.addAction(action_vac)
+##candidatos
+        action_can = QAction("&CANDIDATOS",self)
+        action_can.triggered.connect(self.redirect_to_window)
+        file_contratacion.addAction(action_can)
+       
+        file_catalogos = menu_bar.addMenu("&Catalogos")
+#area
+        action_a = QAction("&CANDIDATOS",self)
+        action_a.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_a)
+#carrera
+        action_ca = QAction("&AREA",self)
+        action_ca.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_ca)
+#escolaridad
+        action_esc = QAction("&CESCOLARIDAD",self)
+        action_esc.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_esc)
+##estado civil
+        action_ec = QAction("&ESTADO CIVIL",self)
+        action_ec.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_ec)
+#grado de avance
+        action_ga = QAction("&GRADO DE AVANCE",self)
+        action_ga.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_ga)
+##habilidades
+        action_ha = QAction("&HABILIDADES",self)
+        action_ha.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_ha)
+##idioma
+        action_id = QAction("&IDIOMA",self)
+        action_id.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_id)
+##medio de publicidad
+        action_mp = QAction("&MEDIO DE PUBLICIDAD",self)
+        action_mp.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_mp)
+##documentos solicitados
+        action_ds = QAction("&DOCUMENTOS SOLICITADOS",self)
+        action_ds.triggered.connect(self.redirect_to_window)
+        file_catalogos.addAction(action_ds)
         
-        action_requisicion = QAction(self)
-        action_requisicion.triggered.connect(self.redirect_to_window)
-        file_re.addAction(action_requisicion)
-
-
-    def redirect_to_window(self):
+        
+    def requisicion(self):
         # Logica para enviar a otras ventanas
         if not hasattr(self, 'vtn_requisicion'):
             self.vtn_requisicion = vtn()
@@ -78,6 +95,9 @@ class HomeWindow(QMainWindow):
             self.close()
         else:
             self.show()
+##se crea subclases para la coneccion de ventanas para cada boton
+    def redirect_to_window(self):
+        self.vtn_analisis = v()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     home_window = HomeWindow()
