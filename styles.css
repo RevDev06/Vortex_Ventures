@@ -39,3 +39,17 @@ QPushButton {
     background-color: #4A6961;
     color: whitesmoke;
 }
+QMenuBar{
+    background-color: #C9B2C4;
+    color:#5F419B;
+    border: 1px #aaa1b7;
+}
+QMenuBar::item{
+    background-color: #C9B2C4;
+    color :#2B322B ;
+    padding: 5px 10px;
+}
+
+QMenuaBar::item:selected{
+    background-color:#B3C89F;
+}
