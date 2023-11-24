@@ -2,7 +2,7 @@ import sys
 from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QMainWindow)#type: ignore
 from PyQt6.QtGui import QFont,QAction#type: ignore
 from PyQt6.QtCore import pyqtSignal#type: ignore
-from ventana1 import vtn 
+from requisicion import vtn 
 
 class HomeWindow(QMainWindow):
     abrrir_ventana = pyqtSignal()

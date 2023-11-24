@@ -35,26 +35,26 @@ class LoginScreen(QMainWindow):
         self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
 
         self.username_label = QLabel("Username:", self)
-        self.username_label.setGeometry(380, window_height // 2 - 200, 100, 30)
+        self.username_label.setGeometry(340, window_height // 2 - 200, 100, 30)
 
         self.username_input = QLineEdit(self)
-        self.username_input.setGeometry(460, window_height // 2 - 200, 200, 30)
+        self.username_input.setGeometry(420, window_height // 2 - 200, 200, 30)
 
         self.username_feedback = QLabel("", self)
-        self.username_feedback.setGeometry(470, window_height // 2 - 170, 300, 30)
+        self.username_feedback.setGeometry(430, window_height // 2 - 170, 300, 30)
 
         self.password_label = QLabel("Password:", self)
-        self.password_label.setGeometry(380, window_height // 2 - 100, 100, 30)
+        self.password_label.setGeometry(340, window_height // 2 - 100, 100, 30)
 
         self.password_input = QLineEdit(self)
-        self.password_input.setGeometry(460, window_height // 2 - 100, 200, 30)
+        self.password_input.setGeometry(420, window_height // 2 - 100, 200, 30)
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.password_feedback = QLabel("", self)
-        self.password_feedback.setGeometry(470, window_height // 2 - 70, 300, 30)
+        self.password_feedback.setGeometry(430, window_height // 2 - 70, 300, 30)
 
         self.login_button = QPushButton("Login", self)
-        self.login_button.setGeometry(500, window_height // 2 + 30, 100, 30)
+        self.login_button.setGeometry(430, window_height // 2- 20 , 140, 60)
         self.login_button.clicked.connect(self.login)
 
         self.close_button = QPushButton("X", self)
@@ -64,6 +64,10 @@ class LoginScreen(QMainWindow):
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
+
+        self.register_button = QPushButton("Register Now", self)
+        self.register_button.clicked.connect(self.red_register)
+        self.register_button.setGeometry(430, window_height // 2 + 60, 140, 60)
 
     def login(self):
         username = self.username_input.text()
@@ -89,15 +93,9 @@ class LoginScreen(QMainWindow):
                 self.password_feedback.setText("Contraseña incorrecta.")
                 print("Acesso denegado")
         return False
+    
+
+    def red_register(self):
+        print("Hola")
 
 
-def main():
-    app = QApplication(sys.argv)
-    login_screen = LoginScreen()
-
-    login_screen.show()
-    sys.exit(app.exec())
-
-
-if __name__ == '__main__':
-    main()
