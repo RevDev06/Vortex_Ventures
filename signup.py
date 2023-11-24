@@ -21,6 +21,7 @@ class SignScreen(QMainWindow):
         window_x = (screen_geometry.width() - window_width) // 2
         window_y = (screen_geometry.height() - window_height) // 2
         self.setGeometry(window_x, window_y, window_width, window_height)
+        self.setObjectName("fondo")
 
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
@@ -60,7 +61,11 @@ class SignScreen(QMainWindow):
 
 ##Guardado de cuenta
         self.sign_button = QPushButton("Sign up", self)
-        self.sign_button.setGeometry(500, 500, 100, 30)
+        self.sign_button.setGeometry(445, 500, 100, 30)
+        self.sign_button.clicked.connect(self.signUp)
+
+        self.sign_button = QPushButton("Back to Login", self)
+        self.sign_button.setGeometry(445, 540, 100, 30)
         self.sign_button.clicked.connect(self.signUp)
 
         self.close_button = QPushButton("X", self)
@@ -82,27 +87,36 @@ class SignScreen(QMainWindow):
         if result is None:
             print("Registrando")
             ##La conrtaseña se carga en la db
-            sql = "INSERT INTO usuarios (nombre, correo, contrasenia) VALUES (%s, %s, %s)"
-            values = (username, email, password)
-            con_db.cursor.execute(sql, values)
-          ##arreglalo plis ._.
-            con_db
-            #Se indica si el registro fue exitoso
-            print("Usuario registrado correctamente.")
-            self.username_feedback.setText("Usuario guardado")
-            self.email_feedback.setText("Contraseña guardado")
-            self.password_feedback.setText("Contraseña guardada")
+            for a in email:
+                if a != "@":
+                    print("Email invalido")
+                    self.email_feedback.setText("Email invalido")
+                else:
+                    print("Email valido")
+                    sql = "INSERT INTO usuarios (nombre, correo, contrasenia) VALUES (%s, %s, %s)"
+                    values = (username, email, password)
+                    con_db.cursor.execute(sql, values)
+                    con_db.comit()
+                    #Se indica si el registro fue exitoso
+                    print("Usuario registrado correctamente.")
+                    self.username_feedback.setText("Usuario guardado")
+                    self.email_feedback.setText("Email guardado")
+                    self.password_feedback.setText("Contraseña guardada")
+                    break
+
         else:
             print("Nombre de usuario ya se esta usando. Vuelve a intentarlo")
             self.username_feedback.setText(
-                "Nombre de usuario incorrecto. Vuelve a intentarlo")
+                "Nombre de usuario ya se esta usando. Vuelve a intentarlo")
         return False
 
 
 def main():
-    app = QApplication(sys.argv)
+    with open('styles.css', 'r') as f:
+        style = f.read()
+    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
+    app.setStyleSheet(style)  # Aplicar el estilo global
     signscreen = SignScreen()
-    
     signscreen.show()
     sys.exit(app.exec())
 
