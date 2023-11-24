@@ -95,7 +95,7 @@ class SignScreen(QMainWindow):
         else:
             print("Nombre de usuario ya se esta usando. Vuelve a intentarlo")
             self.username_feedback.setText(
-                "Nombre de usuario incorrecto. Vuelve a intentarlo")
+                "Nombre de usuario ya se esta usando. Vuelve a intentarlo")
         return False
 
 
