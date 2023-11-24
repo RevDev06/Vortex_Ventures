@@ -12,7 +12,7 @@ class SignScreen(QMainWindow):
         super().__init__()
 
         # Remove window frame
-        ##self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         # Calculate the position of the window in the center
         screen_geometry = QApplication.primaryScreen().availableGeometry()
