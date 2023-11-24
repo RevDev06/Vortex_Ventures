@@ -5,7 +5,7 @@ from PyQt6.QtCore import pyqtSignal#type: ignore
 from requisicion import vtn 
 
 class HomeWindow(QMainWindow):
-    abrrir_ventana = pyqtSignal()
+    abrir_ventana = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Home")
@@ -66,19 +66,21 @@ class HomeWindow(QMainWindow):
         file_s.addAction(action1)
         
         action_requisicion = QAction(self)
-        action_requisicion.triggered.connect(self.abrrir_ventana.emit)
+        action_requisicion.triggered.connect(self.redirect_to_window)
         file_re.addAction(action_requisicion)
 
 
     def redirect_to_window(self):
         # Logica para enviar a otras ventanas
-        self.close()
+        if not hasattr(self, 'vtn_requisicion'):
+            self.vtn_requisicion = vtn()
+            self.vtn_requisicion.show()
+            self.close()
+        else:
+            self.show()
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     home_window = HomeWindow()
-    vtn=vtn()
-    home_window.abrrir_ventana.connect(vtn.show)
-    home_window.abrrir_ventana.connect(home_window.redirect_to_window)
     home_window.show()
     sys.exit(app.exec())
     
