@@ -86,7 +86,7 @@ class SignScreen(QMainWindow):
             values = (username, email, password)
             con_db.cursor.execute(sql, values)
           ##arreglalo plis ._.
-            con_db.comit()
+            con_db
             #Se indica si el registro fue exitoso
             print("Usuario registrado correctamente.")
             self.username_feedback.setText("Usuario guardado")
