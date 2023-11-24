@@ -13,9 +13,7 @@ class LoginScreen(QMainWindow):
     def __init__(self):
         super().__init__()
 
-
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
 
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 1000
@@ -27,8 +25,6 @@ class LoginScreen(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-
-        
         self.icon = QIcon
 
         self.tittle = QLabel("LOGIN", self)
@@ -41,7 +37,8 @@ class LoginScreen(QMainWindow):
         self.username_input.setGeometry(420, window_height // 2 - 200, 200, 30)
 
         self.username_feedback = QLabel("", self)
-        self.username_feedback.setGeometry(430, window_height // 2 - 170, 300, 30)
+        self.username_feedback.setGeometry(
+            430, window_height // 2 - 170, 300, 30)
 
         self.password_label = QLabel("Password:", self)
         self.password_label.setGeometry(340, window_height // 2 - 100, 100, 30)
@@ -51,10 +48,11 @@ class LoginScreen(QMainWindow):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.password_feedback = QLabel("", self)
-        self.password_feedback.setGeometry(430, window_height // 2 - 70, 300, 30)
+        self.password_feedback.setGeometry(
+            430, window_height // 2 - 70, 300, 30)
 
         self.login_button = QPushButton("Login", self)
-        self.login_button.setGeometry(430, window_height // 2- 20 , 140, 60)
+        self.login_button.setGeometry(430, window_height // 2 - 20, 140, 60)
         self.login_button.clicked.connect(self.login)
 
         self.close_button = QPushButton("X", self)
@@ -81,7 +79,8 @@ class LoginScreen(QMainWindow):
 
         if result is None:
             print("Nombre de usuario incorrecto. Vuelve a intentarlo")
-            self.username_feedback.setText("Nombre de usuario incorrecto. Vuelve a intentarlo")
+            self.username_feedback.setText(
+                "Nombre de usuario incorrecto. Vuelve a intentarlo")
         else:
             if password == db_password:
                 print("Bienvenido")
@@ -93,9 +92,18 @@ class LoginScreen(QMainWindow):
                 self.password_feedback.setText("Contraseña incorrecta.")
                 print("Acesso denegado")
         return False
-    
 
     def red_register(self):
-        print("Hola")
+        print("Redireccioando")
 
 
+def main():
+    app = QApplication(sys.argv)
+    login_screen = LoginScreen()
+
+    login_screen.show()
+    sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()
