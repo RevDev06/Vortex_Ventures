@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QMainWindow)#type: ignore
+from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QMainWindow,QMenu,QMenuBar)#type: ignore
 from PyQt6.QtGui import QFont,QAction#type: ignore
 from PyQt6.QtCore import pyqtSignal#type: ignore
 from requisicion import vtn 
@@ -24,20 +24,21 @@ class HomeWindow(QMainWindow):
 
     def create_navigation_bar(self):
         menu_bar = self.menuBar()
-        menu_bar.move(50,50)
+        menu_bar.setFixedHeight(30)
 ##nombre de la barra
-        file_contratacion = menu_bar.addMenu("&Contratación")
+        file_contratacion = menu_bar.addMenu("&CONTRATACIÓN")
+        file_contratacion.setFont(QFont('Arial',8))
 ##puesto
-        action_p =QAction("&PUESTO",self)
+        action_p = QAction("&PUESTO",self)
         action_p.triggered.connect(self.redirect_to_window)
-        file_contratacion.addMenu("action_p")
+        file_contratacion.addAction(action_p)
 ##requisicion
         action_requisicion = QAction("&REQUISICION",self)
         action_requisicion.triggered.connect(self.requisicion)
         file_contratacion.addAction(action_requisicion)
 ##antorizacion
         action_aut = QAction("&AUTORIZACION",self)
-        action_aut.triggered.connect(self.redirect_to_window)
+        action_aut.triggered.connect(self.analisis)
         file_contratacion.addAction(action_aut)
 ##vacantes
         action_vac = QAction("&VACANTES",self)
@@ -48,7 +49,8 @@ class HomeWindow(QMainWindow):
         action_can.triggered.connect(self.redirect_to_window)
         file_contratacion.addAction(action_can)
        
-        file_catalogos = menu_bar.addMenu("&Catalogos")
+        file_catalogos = menu_bar.addMenu("&CATALOGOS")
+        file_catalogos.setFont(QFont('Arial',8))
 #area
         action_a = QAction("&CANDIDATOS",self)
         action_a.triggered.connect(self.redirect_to_window)
@@ -95,11 +97,20 @@ class HomeWindow(QMainWindow):
             self.close()
         else:
             self.show()
-##se crea subclases para la coneccion de ventanas para cada boton
+    def analisis(self):
+        if not hasattr(self,'v_analisis'):
+            self.v_analisis=v()
+            self.v_analisis.show()
+            self.close()
+        else:
+            self.show()
     def redirect_to_window(self):
-        self.vtn_analisis = v()
+        self.vtn_catalogos
 if __name__ == "__main__":
+    with open('styles.css', 'r') as f:
+        style = f.read()
     app = QApplication(sys.argv)
+    app.setStyleSheet(style) 
     home_window = HomeWindow()
     home_window.show()
     sys.exit(app.exec())
