@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
+from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
 from home import HomeWindow
@@ -12,10 +13,10 @@ class LoginScreen(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Remove window frame
+
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
-        # Calculate the position of the window in the center
+
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 1000
         window_height = 800
@@ -26,31 +27,34 @@ class LoginScreen(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-        # Create login form elements
+
+        
+        self.icon = QIcon
+
         self.tittle = QLabel("LOGIN", self)
-        self.tittle.setGeometry(480, 200, 100, 30)
+        self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
 
         self.username_label = QLabel("Username:", self)
-        self.username_label.setGeometry(380, 300, 100, 30)
+        self.username_label.setGeometry(380, window_height // 2 - 200, 100, 30)
 
         self.username_input = QLineEdit(self)
-        self.username_input.setGeometry(460, 300, 200, 30)
+        self.username_input.setGeometry(460, window_height // 2 - 200, 200, 30)
 
         self.username_feedback = QLabel("", self)
-        self.username_feedback.setGeometry(470, 330, 300, 30)
+        self.username_feedback.setGeometry(470, window_height // 2 - 170, 300, 30)
 
         self.password_label = QLabel("Password:", self)
-        self.password_label.setGeometry(380, 370, 100, 30)
+        self.password_label.setGeometry(380, window_height // 2 - 100, 100, 30)
 
         self.password_input = QLineEdit(self)
-        self.password_input.setGeometry(460, 370, 200, 30)
+        self.password_input.setGeometry(460, window_height // 2 - 100, 200, 30)
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.password_feedback = QLabel("", self)
-        self.password_feedback.setGeometry(470, 400, 300, 30)
+        self.password_feedback.setGeometry(470, window_height // 2 - 70, 300, 30)
 
         self.login_button = QPushButton("Login", self)
-        self.login_button.setGeometry(500, 500, 100, 30)
+        self.login_button.setGeometry(500, window_height // 2 + 30, 100, 30)
         self.login_button.clicked.connect(self.login)
 
         self.close_button = QPushButton("X", self)
@@ -73,8 +77,7 @@ class LoginScreen(QMainWindow):
 
         if result is None:
             print("Nombre de usuario incorrecto. Vuelve a intentarlo")
-            self.username_feedback.setText(
-                "Nombre de usuario incorrecto. Vuelve a intentarlo")
+            self.username_feedback.setText("Nombre de usuario incorrecto. Vuelve a intentarlo")
         else:
             if password == db_password:
                 print("Bienvenido")

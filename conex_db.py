@@ -32,5 +32,8 @@ class database:
         if self.db:
             self.db.close()
 
+    def comit(self):
+        self.db.commit()
+
 
 db = database()
