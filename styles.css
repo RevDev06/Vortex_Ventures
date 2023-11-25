@@ -1,6 +1,6 @@
 QProgressBar {
-    border: 2px solid black;
-    border-radius: 1px;
+    border: 2px solid grey;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -8,40 +8,47 @@ QProgressBar::chunk {
     background-color: #05B8CC;
     width: 20px;
 }
-#minimize_button{
-    background-color: #05B8CC;
-}
+
 QLineEdit{
-    border : 2px solid #DDDDD5;
+    border : 2px solid #5f5a4d;;
     border-radius: 5px;
-    background-color: #B2C99D;
+    background-color: #ccc6ac;
     width: 20px
+
 }
 
-v {
-    background-color: #EBEBEB;
-}
-#fondo{
-    background-color: #EBEBEB;
-}
 QLabel{
-    color:#4A6961;
+    color:#e1e1d5;
 }
 QRadioButton::indicator:checked{
-    background-color: #4A6961;
+    background-color: #867c61;
     width: 15px;
     height: 15px;
     border-radius: 7px;
+    
+}
+QRadioButton{
+    color: #e1e1d5;
 }
 QComboBox {
-    background-color: #CBBEB6;
-    color : #5c526a;
-    border: 1px solid #EBEBEB;
+    background-color: #897e65;
+    color : #a9a895;
+    border: 2px solid #736a59;
+    border-radius: 5px;
+}
+QComboBox ::item{
+    background-color: #969286;
 }
 QPushButton {
-    background-color: #4A6961;
-    color: whitesmoke;
+    background-color: #5f5a4d;
+    color: #e3ded1;
 }
+QDateTimeEdit{
+    background-color: #c1c1bb;
+    color:#43423b;
+    border: 1px #43423b
+}
+/*home*/
 QMenuBar{
     background-color: #C9B2C4;
     color:#5F419B;
@@ -56,3 +63,5 @@ QMenuBar::item{
 QMenuaBar::item:selected{
     background-color:#B3C89F;
 }
+
+
