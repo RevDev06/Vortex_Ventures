@@ -180,7 +180,7 @@ class aplicacion(QMainWindow):
         self.setCentralWidget(self.aplicacion_widgets)
         self.aplicacion_widgets.setCurrentWidget(self.pag_1)
         self.inicializar_ui()
-        ##modificacion
+        
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
@@ -188,7 +188,7 @@ class aplicacion(QMainWindow):
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
-        ############################################
+        
     def inicializar_ui(self):
         self.resize(1000,600)
         self.setWindowTitle('Detalles del Puesto')
