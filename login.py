@@ -26,6 +26,16 @@ class LoginScreen(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
+         # Crear un degradado de color para el fondo
+        gradient = QLinearGradient(0, 0, self.width(), 0)
+        gradient.setColorAt(0, QColor("#0e212c"))  # Color más claro a la izquierda
+        gradient.setColorAt(0.5, QColor("#43423b"))  # Color más oscuro a la derecha
+        gradient.setColorAt(1,QColor("#816d50"))
+        # Establecer el degradado como fondo de la ventana
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
+
         self.icon = QIcon
 
         self.tittle = QLabel("LOGIN", self)
@@ -68,6 +78,14 @@ class LoginScreen(QMainWindow):
         self.register_button.clicked.connect(self.red_register)
         self.register_button.setGeometry(440, window_height // 2 + 30, 120, 40)
 
+        self.tittle.setStyleSheet("color:#251d1c;")
+        self.username_label.setStyleSheet("font-family:Harrison; color:#816d50;")
+        self.password_label.setStyleSheet(" font-family: vintage;;color:#816d50;")
+
+        self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
+        self.close_button.setStyleSheet("background-color: #fae9cc; color: white;")
+        self.minimize_button.setStyleSheet("background-color: #d2c499; color: black;")
+        self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
@@ -107,6 +125,26 @@ class LoginScreen(QMainWindow):
     def red_register(self):
         print("Redireccioando")
 
+    def paintEvent(self, event):
+       # Pintar un cuadrado en la ventana
+        painter = QPainter(self)
+
+        # Definir el color original
+        color_original = QColor("#b5b1a6")
+
+        # Ajustar el brillo del color original para el fondo
+        brillo_fondo = 150
+        color_fondo = color_original.lighter(brillo_fondo)
+        painter.fillRect(290, 130, 430, 430, color_fondo)
+
+        # Ajustar el brillo del color original para el borde
+        brillo_borde = 500
+        color_borde = color_original.lighter(brillo_borde)
+
+        # Dibujar un rectángulo más grande para el borde
+        ancho_borde = 10
+        painter.setPen(color_borde)  # Establecer el color del borde
+        painter.drawRect(270, 110, 470, 470)
 
 def main():
     app = QApplication(sys.argv)
