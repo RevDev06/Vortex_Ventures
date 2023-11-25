@@ -40,9 +40,11 @@ class LoginScreen(QMainWindow):
 
         self.tittle = QLabel("LOGIN", self)
         self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
+        self.tittle.setFont(QFont('vintage',16))
 
         self.username_label = QLabel("Username:", self)
         self.username_label.setGeometry(340, window_height // 2 - 200, 100, 30)
+        self.username_label.setFont(QFont('Arial',12))
 
         self.username_input = QLineEdit(self)
         self.username_input.setGeometry(420, window_height // 2 - 200, 200, 30)
@@ -53,6 +55,7 @@ class LoginScreen(QMainWindow):
 
         self.password_label = QLabel("Password:", self)
         self.password_label.setGeometry(340, window_height // 2 - 100, 100, 30)
+        self.password_label.setFont(QFont('Arial',12))
 
         self.password_input = QLineEdit(self)
         self.password_input.setGeometry(420, window_height // 2 - 100, 200, 30)
@@ -65,6 +68,7 @@ class LoginScreen(QMainWindow):
         self.login_button = QPushButton("Login", self)
         self.login_button.setGeometry(440, window_height // 2 - 20, 120, 40)
         self.login_button.clicked.connect(self.login)
+        self.login_button.setFont(QFont('Arial',10))
 
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
@@ -77,10 +81,11 @@ class LoginScreen(QMainWindow):
         self.register_button = QPushButton("Register Now", self)
         self.register_button.clicked.connect(self.red_register)
         self.register_button.setGeometry(440, window_height // 2 + 30, 120, 40)
+        self.register_button.setFont(QFont('Arial',10))
 
         self.tittle.setStyleSheet("color:#251d1c;")
-        self.username_label.setStyleSheet("font-family:Harrison; color:#816d50;")
-        self.password_label.setStyleSheet(" font-family: vintage;;color:#816d50;")
+        self.username_label.setStyleSheet(" color:#816d50;")
+        self.password_label.setStyleSheet(";color:#816d50;")
 
         self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
         self.close_button.setStyleSheet("background-color: #fae9cc; color: white;")
