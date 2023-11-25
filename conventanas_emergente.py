@@ -941,7 +941,7 @@ class aplicacion(QMainWindow):
         self.pag3.botona_pag.clicked.connect(self.cambioa_pag1)
         self.pag3.botonregreso.clicked.connect(self.cambioa_pag2)
         self.pag2.botoncancelar.clicked.connect(self.cancelar_puesto)
-        self.pag1.detalles.clicked.connect(self.ventanaDet)
+        self.pag1.detalles.clicked.connect(self.id_puesto)
         self.ventanad.botoncancelar.clicked.connect(self.cambioa_pag11)
         self.ventanad.botona_pag.clicked.connect(self.ventanaDet2)
         self.ventanad2.botoncancelar.clicked.connect(self.ventanaDet)
@@ -993,12 +993,21 @@ class aplicacion(QMainWindow):
         self.pag2.limpiar()
         self.pag3.limpiar()    
 
+    def id_puesto(self):
+        ventanadet=ventanaemedetalles(self.id_correcto)
+        ventanadet.exec()
+
+    def id_correcto(self):
+        self.apilar.setCurrentWidget(self.ventanad)
+
     def contraynombreP(self):
         ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
         ventanaEDI.exec()
 
     def contraynombrecorrectos(self):
         self.apilar.setCurrentWidget(self.ventanaedit)
+
+
 
     def pedir_contra(self):
         ventanac = ventanacontra(self.contracorrecta)
@@ -1061,6 +1070,32 @@ class ventanacontra(QDialog):
             self.callback()
         else:
             QMessageBox.warning(self, 'Contraseña incorrecta', 'La contraseña es incorrecta. Inténtelo de nuevo.')
+
+class ventanaemedetalles(QDialog):
+    def __init__(self, callback):
+        super().__init__()
+        self.callback3 = callback
+        self.setWindowTitle('Id_correcto')
+        self.setFixedSize(250, 150) 
+        etiqueta = QLabel('Ingrese la Id del Puesto', self)
+        self.id = QLineEdit(self)  
+        verificaexis = QPushButton('Siguiente', self)
+        verificaexis.clicked.connect(self.verificaexistencia)
+        layout = QVBoxLayout()
+        layout.addWidget(etiqueta)
+        layout.addWidget(self.id)
+        layout.addWidget(verificaexis)
+        self.setLayout(layout)
+
+    def verificaexistencia(self):
+        if self.id.text()=='1':
+            print('si pasa')
+            self.close()
+            self.callback3()
+        else:
+            QMessageBox.warning(self, 'Id no encontrada', 'La Id es incorrecta. Inténtelo de nuevo.')
+
+
 
 class ventanaemeeditar(QDialog):
     def __init__(self, callback):
