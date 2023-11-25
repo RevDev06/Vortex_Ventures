@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QLineEdit, QStackedWidget, QMainWindow, QLabel, QTableWidget,QPushButton, QHBoxLayout, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QLineEdit, QDialog, QMessageBox, QStackedWidget, QMainWindow, QLabel, QTableWidget,QPushButton, QHBoxLayout, QWidget, QVBoxLayout
 
 class VPuesto(QWidget):
     def __init__(self):
@@ -637,17 +637,17 @@ class aplicacion(QMainWindow):
         self.conexiones()
 
     def conexiones(self):
-        self.pag1.agregar.clicked.connect(self.cambioa_pag2)
+        self.pag1.agregar.clicked.connect(self.pedir_contra)
         self.pag2.botona_pag.clicked.connect(self.cambioa_pag3)
         self.pag3.botona_pag.clicked.connect(self.cambioa_pag1)
         self.pag3.botonregreso.clicked.connect(self.cambioa_pag2)
         self.pag2.botoncancelar.clicked.connect(self.cancelar_puesto)
-        self.pag1.detalles.clicked.connect(self.ventanaDet)
+        self.pag1.detalles.clicked.connect(self.id_puesto)
         self.ventanad.botoncancelar.clicked.connect(self.cambioa_pag11)
         self.ventanad.botona_pag.clicked.connect(self.ventanaDet2)
         self.ventanad2.botoncancelar.clicked.connect(self.ventanaDet)
         self.ventanad2.botona_pag.clicked.connect(self.cambioa_pag11)
-        self.pag1.editar.clicked.connect(self.aventanaedi)
+        self.pag1.editar.clicked.connect(self.contraynombreP)
         self.ventanaedit.botoncancelar.clicked.connect(self.cambioa_pag11)
         self.ventanaedit.botona_pag.clicked.connect(self.ventanaedi2)
         self.ventanaedit2.botona_pag.clicked.connect(self.cambioa_pag111)
@@ -661,7 +661,6 @@ class aplicacion(QMainWindow):
     def ventanaedi2(self):
         self.variables_pag2()
         self.apilar.setCurrentWidget(self.ventanaedit2)
-
 
     def aventanaedi(self):
         self.apilar.setCurrentWidget(self.ventanaedit)
@@ -694,6 +693,27 @@ class aplicacion(QMainWindow):
         self.pasoa_bd()
         self.pag2.limpiar()
         self.pag3.limpiar()    
+
+    def id_puesto(self):
+        ventanadet=ventanaemedetalles(self.id_correcto)
+        ventanadet.exec()
+
+    def id_correcto(self):
+        self.apilar.setCurrentWidget(self.ventanad)
+
+    def contraynombreP(self):
+        ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
+        ventanaEDI.exec()
+
+    def contraynombrecorrectos(self):
+        self.apilar.setCurrentWidget(self.ventanaedit)
+
+    def pedir_contra(self):
+        ventanac = ventanacontra(self.contracorrecta)
+        ventanac.exec()
+
+    def contracorrecta(self):
+        self.apilar.setCurrentWidget(self.pag2)
 
     def variables_pag2(self):
         self.nombre=self.pag2.nom_t.text()
@@ -733,6 +753,89 @@ class aplicacion(QMainWindow):
         self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
         self.dragPos = event.globalPosition().toPoint()
         event.accept()
+
+class ventanacontra(QDialog):
+    def __init__(self, callback):
+        super().__init__()
+        self.callback = callback
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.close_button = QPushButton("X", self)
+        self.close_button.clicked.connect(self.close)
+        self.close_button.setGeometry(210, 0, 30, 30)
+        self.setFixedSize(250, 150) 
+        self.etiqueta = QLabel('Ingrese la contraseña:', self)
+        self.etiqueta.setGeometry(40, 50, 30, 30)
+        self.contra = QLineEdit(self)  
+        self.verifica = QPushButton('Verificar', self)
+        self.verifica.clicked.connect(self.verificacontra)
+        layout = QVBoxLayout()
+        layout.addWidget(self.etiqueta)
+        layout.addWidget(self.contra)
+        layout.addWidget(self.verifica)
+        self.setLayout(layout)
+
+    def verificacontra(self):
+        if self.contra.text()=='Secret':
+            print('si pasa')
+            self.close()
+            self.callback()
+        else:
+            QMessageBox.warning(self, 'Contraseña incorrecta', 'La contraseña es incorrecta. Inténtelo de nuevo.')
+
+class ventanaemedetalles(QDialog):
+    def __init__(self, callback):
+        super().__init__()
+        self.callback3 = callback
+        self.setWindowTitle('Id_correcto')
+        self.setFixedSize(250, 150) 
+        etiqueta = QLabel('Ingrese la Id del Puesto', self)
+        self.id = QLineEdit(self)  
+        verificaexis = QPushButton('Siguiente', self)
+        verificaexis.clicked.connect(self.verificaexistencia)
+        layout = QVBoxLayout()
+        layout.addWidget(etiqueta)
+        layout.addWidget(self.id)
+        layout.addWidget(verificaexis)
+        self.setLayout(layout)
+
+    def verificaexistencia(self):
+        if self.id.text()=='1':
+            print('si pasa')
+            self.close()
+            self.callback3()
+        else:
+            QMessageBox.warning(self, 'Id no encontrada', 'La Id es incorrecta. Inténtelo de nuevo.')
+
+
+
+class ventanaemeeditar(QDialog):
+    def __init__(self, callback):
+        super().__init__()
+        self.callback2= callback
+        self.setWindowTitle('')
+        self.setFixedSize(250, 150) 
+        nombreP=QLabel('Ingrese el nombre del puesto a editar')
+        self.nombre=QLineEdit(self)
+        contral = QLabel('Ingrese la contraseña:', self)
+        self.contra = QLineEdit(self)  
+        verifica = QPushButton('Verificar', self)
+        verifica.clicked.connect(self.verificacontraynombre)
+        layout = QVBoxLayout()
+        layout.addWidget(nombreP)
+        layout.addWidget(self.nombre)
+        layout.addWidget(contral)
+        layout.addWidget(self.contra)
+        layout.addWidget(verifica)
+        self.setLayout(layout)
+
+    def verificacontraynombre(self):
+        if self.contra.text()=='Secret' and self.nombre.text()=='1':
+            print('si pasa')
+            self.close()
+            self.callback2()
+        else:
+            QMessageBox.warning(self, 'Contraseña o id invalidos','Inténtelo de nuevo.')
+
 
 if __name__ == '__main__':
     with open('styles.css', 'r') as f:
