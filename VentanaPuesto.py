@@ -17,7 +17,7 @@ class VPuesto(QWidget):
 
         self.tableWidget.setStyleSheet("QTableWidget { background-color: black; }")
         self.tableWidget.setStyleSheet("QTableWidget::item { border: .2px solid black; }")
-        column_width = 140
+        column_width = 250
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setVisible(False)
         for i in range(self.columna):
@@ -25,9 +25,9 @@ class VPuesto(QWidget):
 
         self.agregar = QPushButton('Agregar Puesto')
         self.agregar.setFont(QFont('Bond', 8))
-        self.agregar.setFixedSize(90, 23)
-
+        self.agregar.setFixedSize(90, 30)
         self.agregar.clicked.connect(self.agregar_fila)
+
         layout = QVBoxLayout(self)
         layout.addWidget(self.agregar)
         layout.addWidget(self.tableWidget)
@@ -68,6 +68,7 @@ class Ventana2(QWidget):
 class Aplicacion(QMainWindow):
     def __init__(self):
         super(Aplicacion, self).__init__()
+
         self.apilacion_widget = QStackedWidget(self)
         self.pag1 = VPuesto()
         self.pag2 = Ventana2()
@@ -78,9 +79,27 @@ class Aplicacion(QMainWindow):
         self.inicializar_ui()
 
     def inicializar_ui(self):
-        self.resize(800, 800)
-        self.setWindowTitle('Puesto')
+        self.resize(1000, 800)
+
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+        self.close_button = QPushButton("X", self)
+        self.close_button.clicked.connect(self.close)
+        self.close_button.setGeometry(960, 0, 40, 30)
+
+        self.minimize_button = QPushButton("-", self)
+        self.minimize_button.clicked.connect(self.showMinimized)
+        self.minimize_button.setGeometry(920, 0, 40, 30)
+
+        #self.setWindowTitle('Puesto')
         self.conexiones()
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event):
+        self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+        self.dragPos = event.globalPosition().toPoint()
+        event.accept()
 
     def conexiones(self):
         self.pag1.agregar.clicked.connect(self.cambioa_pag2)
@@ -93,7 +112,10 @@ class Aplicacion(QMainWindow):
         self.apilacion_widget.setCurrentWidget(self.pag1)
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    with open('styles.css', 'r') as f:
+        style = f.read()
+    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
+    app.setStyleSheet(style)  # Aplicar el estilo global
     ventana = Aplicacion()
     ventana.show()
     sys.exit(app.exec())
