@@ -188,11 +188,20 @@ class aplicacion(QMainWindow):
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
-        
+
+    
     def inicializar_ui(self):
         self.resize(1000,600)
         self.setWindowTitle('Detalles del Puesto')
         self.conexiones()
+        
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event):
+        self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+        self.dragPos = event.globalPosition().toPoint()
+        event.accept()
 
     def conexiones(self):
         self.pag_1.botona_pag.clicked.connect(self.cambio_pag_2)
@@ -204,6 +213,7 @@ class aplicacion(QMainWindow):
     def cambio_pag_1(self):
         self.aplicacion_widgets.setCurrentWidget(self.pag_1)
 
+
 if __name__ == '__main__':
     with open('styles.css', 'r') as f:
         style = f.read()
@@ -212,3 +222,4 @@ if __name__ == '__main__':
     ventana=aplicacion()
     ventana.show()
     sys.exit(app.exec())
+
