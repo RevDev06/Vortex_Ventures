@@ -78,6 +78,16 @@ class SignScreen(QMainWindow):
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
 
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event):
+        self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+        self.dragPos = event.globalPosition().toPoint()
+        event.accept()
+
+
     def signUp(self):
         username = self.username_input.text()
         email = self.email_input.text()
