@@ -52,7 +52,7 @@ class LoginScreen(QMainWindow):
             430, window_height // 2 - 70, 300, 30)
 
         self.login_button = QPushButton("Login", self)
-        self.login_button.setGeometry(430, window_height // 2 - 20, 140, 60)
+        self.login_button.setGeometry(440, window_height // 2 - 20, 120, 40)
         self.login_button.clicked.connect(self.login)
 
         self.close_button = QPushButton("X", self)
@@ -65,7 +65,7 @@ class LoginScreen(QMainWindow):
 
         self.register_button = QPushButton("Register Now", self)
         self.register_button.clicked.connect(self.red_register)
-        self.register_button.setGeometry(430, window_height // 2 + 60, 140, 60)
+        self.register_button.setGeometry(440, window_height // 2 + 30, 120, 40)
 
     def login(self):
         username = self.username_input.text()
