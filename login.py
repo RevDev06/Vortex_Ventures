@@ -7,7 +7,8 @@ from conex_db import database
 from home import HomeWindow
 
 con_db = database()
-
+con_db.verify_schema()
+con_db.create_tables()
 
 class LoginScreen(QMainWindow):
     def __init__(self):
