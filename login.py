@@ -21,6 +21,7 @@ class LoginScreen(QMainWindow):
         window_x = (screen_geometry.width() - window_width) // 2
         window_y = (screen_geometry.height() - window_height) // 2
         self.setGeometry(window_x, window_y, window_width, window_height)
+        self.setObjectName("fondo")
 
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
@@ -100,7 +101,6 @@ class LoginScreen(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     login_screen = LoginScreen()
-
     login_screen.show()
     sys.exit(app.exec())
 

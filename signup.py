@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
+from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
 
@@ -29,7 +30,8 @@ class SignScreen(QMainWindow):
         # Create sign form elements
          # Create login form elements
         self.tittle = QLabel("SIGN UP", self)
-        self.tittle.setGeometry(480, 200, 100, 30)
+        self.tittle.setGeometry(window_width // 2 - 80, 150, 220, 100)
+        self.tittle.setFont(QFont("Roboto", 40))
 
         self.username_label = QLabel("Username:", self)
         self.username_label.setGeometry(380, 300, 100, 30)
@@ -61,11 +63,11 @@ class SignScreen(QMainWindow):
 
 ##Guardado de cuenta
         self.sign_button = QPushButton("Sign up", self)
-        self.sign_button.setGeometry(445, 500, 100, 30)
+        self.sign_button.setGeometry(window_width // 2 - 40, window_height // 2 + 100, 120, 40)
         self.sign_button.clicked.connect(self.signUp)
 
         self.sign_button = QPushButton("Back to Login", self)
-        self.sign_button.setGeometry(445, 540, 100, 30)
+        self.sign_button.setGeometry(window_width // 2 - 40, window_height // 2 + 160, 120, 40)
         self.sign_button.clicked.connect(self.signUp)
 
         self.close_button = QPushButton("X", self)
