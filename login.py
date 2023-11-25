@@ -68,6 +68,16 @@ class LoginScreen(QMainWindow):
         self.register_button.clicked.connect(self.red_register)
         self.register_button.setGeometry(440, window_height // 2 + 30, 120, 40)
 
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event):
+        self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+        self.dragPos = event.globalPosition().toPoint()
+        event.accept()
+
+        
     def login(self):
         username = self.username_input.text()
         password = self.password_input.text()
