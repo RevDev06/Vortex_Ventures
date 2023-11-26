@@ -1,11 +1,11 @@
 QProgressBar {
-    border: 2px solid grey;
+    border: 2px solid  #b58863;
     border-radius: 5px;
     text-align: center;
 }
 
 QProgressBar::chunk {
-    background-color: #05B8CC;
+    background-color: #a79e9c;
     width: 20px;
 }
 
@@ -75,5 +75,4 @@ HomeWindow {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 
