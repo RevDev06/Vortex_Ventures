@@ -166,7 +166,10 @@ class LoginScreen(QMainWindow):
         painter.drawRect(270, 70, 470, 470)
 
 def main():
+    with open('styles.css', 'r') as f:
+        style = f.read()
     app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
+    app.setStyleSheet(style)  
     login_screen = LoginScreen()
     login_screen.show()
     sys.exit(app.exec())
