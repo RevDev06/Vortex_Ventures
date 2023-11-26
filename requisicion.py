@@ -2,7 +2,7 @@
 import sys
 from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QLineEdit, QPushButton,QDateTimeEdit,
 QMessageBox, QCheckBox,QComboBox,QRadioButton)
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QFont, QBrush, QLinearGradient, QPainter, QColor,QPalette
 from PyQt6.QtCore import QSize,Qt,QLocale,QDateTime
 ##crear una ventana
 
@@ -21,13 +21,25 @@ class vtn(QWidget):
               self.close_button = QPushButton("X", self)
               self.close_button.clicked.connect(self.close)
               self.close_button.setGeometry(960, 0, 40, 40)
+              self.close_button.setStyleSheet("background-color:#5f5a4d; color:#ccc6ac;border-radius: 5px;")
+
 
               self.minimize_button = QPushButton("-", self)
               self.minimize_button.clicked.connect(self.showMinimized)
               self.minimize_button.setGeometry(920, 0, 40, 40)
+               self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
 
               self.generar_formulario()
               self.show() ##visualice la ventana
+
+         # Crear un degradado de color para el fondo
+              gradient = QLinearGradient(0, 0, self.width(), 0)
+              gradient.setColorAt(0, QColor("#1a1617"))  # Color más oscuro a la izquierda
+              gradient.setColorAt(1, QColor("#2d241b"))  # Color más claro a la derecha
+              # Establecer el degradado como fondo de la ventana
+              palette = self.palette()
+              palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+              self.setPalette(palette)
        
        def mousePressEvent(self, event):
             self.dragPos = event.globalPosition().toPoint()
