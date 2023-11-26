@@ -3,9 +3,9 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
-class VArea(QWidget):
+class Vidioma(QWidget):
     def __init__(self):
-        super(VArea, self).__init__()
+        super(Vidioma, self).__init__()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.fila = 0
         self.columna = 3
@@ -43,8 +43,8 @@ class VArea(QWidget):
         for i in range(self.columna):
             self.tableWidget.setColumnWidth(i, column_width)
 
-        self.agregar = QPushButton('Agregar Area')
-        self.agregar.setFixedSize(100, 30)
+        self.agregar = QPushButton('Agregar Idioma')
+        self.agregar.setFixedSize(115, 30)
         self.agregar.clicked.connect(self.contra)
 
         self.editar = QPushButton('Editar')
@@ -77,7 +77,7 @@ class VArea(QWidget):
         ventanita = emergente2()
         result = ventanita.exec()
         if result == QDialog.DialogCode.Accepted:
-            nombre = ventanita.nombre.text()
+            nombre = ventanita.idioma.text()
             id = ventanita.Id.text()
             id2=ventanita.Id2.text()
             self.buscar(id2,nombre,id)
@@ -91,7 +91,7 @@ class VArea(QWidget):
             else:
                 stilo = """QDialog {background-color: #072d44}"""
                 self.setStyleSheet(stilo)
-                QMessageBox.warning(self, "", "No esxiste ningun area con esa Id")
+                QMessageBox.warning(self, "", "No esxiste ningun estado civil con esa Id")
 
     def cambio(self):
         pass
@@ -100,9 +100,9 @@ class VArea(QWidget):
         ventanita = emergente()
         result = ventanita.exec()
         if result == QDialog.DialogCode.Accepted:
-            nombre = ventanita.nombre.text()
+            idioma = ventanita.idioma.text()
             id = ventanita.Id.text()
-            self.agregar_fila(nombre, id)
+            self.agregar_fila(idioma, id)
 
     def crearfila(self,nombre):
         nombre, id, accepted = self.pedir_nombre()
@@ -145,9 +145,9 @@ class emergente(QDialog):
         self.close_button.clicked.connect(self.reject)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 230) 
-        self.nombreP=QLabel('Ingrese el nombre:',self)
-        self.nombreP.setGeometry(10,25,160,15)
-        self.nombre=QLineEdit(self)
+        self.idiomaP=QLabel('Ingrese el idioma:',self)
+        self.idiomaP.setGeometry(10,25,160,15)
+        self.idioma=QLineEdit(self)
         self.Idl = QLabel('Ingrese el Id:', self)
         self.Idl.setGeometry(10,85,160,15)
         self.Id = QLineEdit(self)  
@@ -156,16 +156,16 @@ class emergente(QDialog):
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
-        layout.addWidget(self.nombre)
+        layout.addWidget(self.idioma)
         layout.addWidget(self.Id)
         layout.addWidget(verifica)
         self.setLayout(layout)
 
     def campos(self):
-        nombre_texto = self.nombre.text().strip()
+        idioma_texto = self.idioma.text().strip()
         id_texto = self.Id.text().strip()
 
-        if not nombre_texto or not id_texto:
+        if not idioma_texto or not id_texto:
             stilo = """QDialog {background-color: #072d44}"""
             self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Ambos campos deben ser completados.")
@@ -180,30 +180,30 @@ class emergente2(QDialog):
         self.close_button.clicked.connect(self.reject)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 230) 
-        self.nombreP=QLabel('Ingrese el nuevo nombre:',self)
-        self.nombreP.setGeometry(10,15,160,15)
-        self.nombre=QLineEdit(self)
+        self.idiomaP=QLabel('Ingrese el nueva idioma:',self)
+        self.idiomaP.setGeometry(10,15,200,15)
+        self.idioma=QLineEdit(self)
         self.Idl = QLabel('Ingrese el nuevo Id:', self)
         self.Idl.setGeometry(10,62,160,15)
         self.Id = QLineEdit(self)  
-        self.Idl2=QLabel('Ingrese el id del area a cambiar:', self)
-        self.Idl2.setGeometry(10,108,160,15)
+        self.Idl2=QLabel('Ingrese el id del idioma a cambiar:', self)
+        self.Idl2.setGeometry(10,108,210,15)
         self.Id2 = QLineEdit(self)  
         verifica = QPushButton('Verificar', self)
         stilo = """QDialog {background-color: #072d44}"""
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
-        layout.addWidget(self.nombre)
+        layout.addWidget(self.idioma)
         layout.addWidget(self.Id)
         layout.addWidget(self.Id2)
         layout.addWidget(verifica)
         self.setLayout(layout)
 
     def campos(self):
-        nombre_texto = self.nombre.text().strip()
+        idioma_texto = self.idioma.text().strip()
         id_texto = self.Id.text().strip()
-        if not nombre_texto or not id_texto:
+        if not idioma_texto or not id_texto:
             stilo = """QDialog {background-color: #072d44}"""
             self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Los campos deben ser completados.")
@@ -245,6 +245,6 @@ if __name__ == '__main__':
         style = f.read()
     app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
     app.setStyleSheet(style)  # Aplicar el estilo global
-    ventana = VArea()
+    ventana = Vidioma()
     ventana.show()
     sys.exit(app.exec())
