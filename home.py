@@ -81,7 +81,7 @@ class HomeWindow(QMainWindow):
         file_catalogos = menu_bar.addMenu("&CATALOGOS")
         file_catalogos.setFont(QFont('Arial',9))
 #area
-        action_a = QAction("&CANDIDATOS",self)
+        action_a = QAction("&CARRERA",self)
         action_a.triggered.connect(self.redirect_to_window)
         file_catalogos.addAction(action_a)
 #carrera
@@ -89,7 +89,7 @@ class HomeWindow(QMainWindow):
         action_ca.triggered.connect(self.redirect_to_window)
         file_catalogos.addAction(action_ca)
 #escolaridad
-        action_esc = QAction("&CESCOLARIDAD",self)
+        action_esc = QAction("&ESCOLARIDAD",self)
         action_esc.triggered.connect(self.redirect_to_window)
         file_catalogos.addAction(action_esc)
 ##estado civil
