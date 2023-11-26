@@ -5,9 +5,13 @@ from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
 from home import HomeWindow
+from signup import SignScreen
 
 con_db = database()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d08ee0bb3fa915a4e715e5e15581497a37e6c22
 
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -26,7 +30,7 @@ class LoginScreen(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-         # Crear un degradado de color para el fondo
+        # Crear un degradado de color para el fondo
         gradient = QLinearGradient(0, 0, self.width(), 0)
         gradient.setColorAt(0, QColor("#0e212c"))  # Color más claro a la izquierda
         gradient.setColorAt(0.5, QColor("#43423b"))  # Color más oscuro a la derecha
@@ -40,7 +44,11 @@ class LoginScreen(QMainWindow):
 
         self.tittle = QLabel("LOGIN", self)
         self.tittle.setGeometry(480, window_height // 2 - 250, 100, 30)
+<<<<<<< HEAD
         self.tittle.setFont(QFont('vintage',16))
+=======
+        self.tittle.setFont(QFont('vintage',20))
+>>>>>>> 6d08ee0bb3fa915a4e715e5e15581497a37e6c22
 
         self.username_label = QLabel("Username:", self)
         self.username_label.setGeometry(340, window_height // 2 - 200, 100, 30)
@@ -69,7 +77,7 @@ class LoginScreen(QMainWindow):
         self.login_button.setGeometry(440, window_height // 2 - 20, 120, 40)
         self.login_button.clicked.connect(self.login)
         self.login_button.setFont(QFont('Arial',10))
-
+        
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
@@ -129,6 +137,12 @@ class LoginScreen(QMainWindow):
 
     def red_register(self):
         print("Redireccioando")
+        if not hasattr(self, 'register'):
+            self.register = SignScreen()
+            self.register.show()
+            self.close()
+        else:
+            self.show()
 
     def paintEvent(self, event):
        # Pintar un cuadrado en la ventana
@@ -140,7 +154,7 @@ class LoginScreen(QMainWindow):
         # Ajustar el brillo del color original para el fondo
         brillo_fondo = 150
         color_fondo = color_original.lighter(brillo_fondo)
-        painter.fillRect(290, 130, 430, 430, color_fondo)
+        painter.fillRect(290, 100, 430, 430, color_fondo)
 
         # Ajustar el brillo del color original para el borde
         brillo_borde = 500
@@ -149,10 +163,10 @@ class LoginScreen(QMainWindow):
         # Dibujar un rectángulo más grande para el borde
         ancho_borde = 10
         painter.setPen(color_borde)  # Establecer el color del borde
-        painter.drawRect(270, 110, 470, 470)
+        painter.drawRect(270, 90, 470, 470)
 
 def main():
-    app = QApplication(sys.argv)
+    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
     login_screen = LoginScreen()
     login_screen.show()
     sys.exit(app.exec())
