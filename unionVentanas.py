@@ -678,6 +678,8 @@ class aplicacion(QMainWindow):
             self.ventanaedit.carrera_t.text()
               ]
         if any(not campo.replace(" ", "") for campo in variables_a_verificar):
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
         else:
             self.ventanaedi2()
@@ -695,6 +697,8 @@ class aplicacion(QMainWindow):
             self.ventanaedit2.habilidades_t.text()
         ]
         if any(not campo.strip() for campo in variables_a_verificar):
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
         else:
             self.cambioa_pag111()    
@@ -737,6 +741,8 @@ class aplicacion(QMainWindow):
             self.pag3.habilidades_t.text()
         ]
         if any(not campo.strip() for campo in variables_a_verificar):
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
         else:
             self.cambioa_pag1()
@@ -755,6 +761,8 @@ class aplicacion(QMainWindow):
             ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
             ventanaEDI.exec()
         else:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "", "No hay nada para editar")
 
     def cambioa_pag111(self):
@@ -885,6 +893,8 @@ class ventanacontra(QDialog):
             self.close()
             self.callback()
         else:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, 'Contraseña incorrecta', 'La contraseña es incorrecta. Inténtelo de nuevo.')
 
 class ventanaemedetalles(QDialog):
@@ -914,6 +924,8 @@ class ventanaemedetalles(QDialog):
             self.close()
             self.callback3()
         else:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, 'Id no encontrada', 'La Id es incorrecta. Inténtelo de nuevo.')
 
 class ventanaemeeditar(QDialog):
@@ -948,6 +960,8 @@ class ventanaemeeditar(QDialog):
             self.close()
             self.callback2()
         else:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, 'Contraseña o id invalidos','Inténtelo de nuevo.')
 
 
