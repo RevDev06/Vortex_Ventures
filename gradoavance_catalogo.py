@@ -77,7 +77,7 @@ class Vgradoavnce(QWidget):
         ventanita = emergente2()
         result = ventanita.exec()
         if result == QDialog.DialogCode.Accepted:
-            nombre = ventanita.estadoc.text()
+            nombre = ventanita.gradoava.text()
             id = ventanita.Id.text()
             id2=ventanita.Id2.text()
             self.buscar(id2,nombre,id)
