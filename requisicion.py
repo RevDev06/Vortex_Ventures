@@ -34,8 +34,9 @@ class vtn(QWidget):
 
          # Crear un degradado de color para el fondo
               gradient = QLinearGradient(0, 0, self.width(), 0)
-              gradient.setColorAt(0, QColor("#1a1617"))  # Color más oscuro a la izquierda
-              gradient.setColorAt(1, QColor("#2d241b"))  # Color más claro a la derecha
+              gradient.setColorAt(0, QColor("#06141b"))  # Color más oscuro a la izquierda
+              gradient.setColorAt(0.5, QColor("#2d241b")) 
+              gradient.setColorAt(1, QColor("#1a1617")) 
               # Establecer el degradado como fondo de la ventana
               palette = self.palette()
               palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))

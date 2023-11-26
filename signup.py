@@ -4,6 +4,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
+from login import LoginScreen
 
 
 con_db = database()
@@ -191,3 +192,5 @@ def main():
     signscreen.show()
     sys.exit(app.exec())
 
+if __name__ == '__main__':
+    main()
