@@ -34,7 +34,7 @@ class v(QWidget):
             gradient = QLinearGradient(0, 0, self.width(), 0)
             gradient.setColorAt(0, QColor("#06141b"))  # Color más oscuro a la izquierda
             gradient.setColorAt(0.5, QColor("#11212d")) 
-            gradient.setColorAt(1, QColor("#867c61")) 
+            gradient.setColorAt(1, QColor("#5e503f")) 
              # Color más claro a la derecha
             # Establecer el degradado como fondo de la ventana
             palette = self.palette()
