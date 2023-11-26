@@ -91,7 +91,7 @@ class Vcarrera(QWidget):
             else:
                 stilo = """QDialog {background-color: #072d44}"""
                 self.setStyleSheet(stilo)
-                QMessageBox.warning(self, "", "No esxiste ningun estado civil con esa Id")
+                QMessageBox.warning(self, "", "No esxiste ninguna carrera con esa Id")
 
     def cambio(self):
         pass
