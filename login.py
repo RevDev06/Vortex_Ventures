@@ -7,7 +7,7 @@ from conex_db import database
 from home import HomeWindow
 
 con_db = database()
-con_db.verifAndCreateDataBase()
+
 
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -39,7 +39,7 @@ class LoginScreen(QMainWindow):
         self.icon = QIcon
 
         self.tittle = QLabel("LOGIN", self)
-        self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
+        self.tittle.setGeometry(480, window_height // 2 - 250, 100, 30)
         self.tittle.setFont(QFont('vintage',16))
 
         self.username_label = QLabel("Username:", self)
