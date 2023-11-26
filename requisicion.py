@@ -59,7 +59,7 @@ class vtn(QWidget):
               titulo_label = QLabel(self)
               titulo_label.setText("Solicitud De Requisicion De Personal")
               titulo_label.setFont(QFont('Arial',16))
-              titulo_label.move(20,15)
+              titulo_label.move(350,15)
        ##folio
               folio_label = QLabel(self)
               folio_label.setText("FOLIO")
