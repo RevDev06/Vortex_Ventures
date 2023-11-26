@@ -1,7 +1,7 @@
 import sys
-from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QLineEdit, QDialog, QMessageBox, QStackedWidget, QMainWindow, QLabel, QTableWidget,QPushButton, QHBoxLayout, QWidget, QVBoxLayout
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
 
 class VPuesto(QWidget):
     def __init__(self):
@@ -13,10 +13,8 @@ class VPuesto(QWidget):
     def generartabla(self):
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(self.fila)
-        self.tableWidget.setColumnCount(self.columna)  
-
-        self.tableWidget.setStyleSheet("QTableWidget { background-color: black; }")
-        self.tableWidget.setStyleSheet("QTableWidget::item { border: .2px solid black; }")
+        self.tableWidget.setColumnCount(self.columna) 
+        # Configuración adicional
         column_width = 490
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setVisible(False)
@@ -54,9 +52,6 @@ class VPuesto(QWidget):
         borrar = QPushButton('Borrar')
         self.tableWidget.setCellWidget(self.fila - 1, 1, borrar)
         borrar.clicked.connect(self.borra)
-
-    def obtener_filas(self):
-        return self.fila
 
     def borra(self):
         index = self.tableWidget.indexAt(self.sender().pos())
@@ -624,7 +619,7 @@ class aplicacion(QMainWindow):
         self.setCentralWidget(self.apilar)
         self.apilar.setCurrentWidget(self.pag1)
         self.inicializar()
-        
+
     def inicializar(self):
         self.resize(1000, 800)
 
@@ -638,6 +633,14 @@ class aplicacion(QMainWindow):
 
         self.setWindowTitle('Ventanas Puesto')
         self.conexiones()
+
+        gradient = QLinearGradient(0, 0, self.width(), 0)
+        gradient.setColorAt(0, QColor("#1a1617"))  # Color más oscuro a la izquierda
+        gradient.setColorAt(1, QColor("#2d241b"))  # Color más claro a la derecha
+        # Establecer el degradado como fondo de la ventana
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
 
     def conexiones(self):
         self.pag1.agregar.clicked.connect(self.pedir_contra)
@@ -714,7 +717,10 @@ class aplicacion(QMainWindow):
             self.pag2.gradoa_t.text(),
             self.pag2.carrera_t.text()]
         if any(not campo.strip() for campo in variables_a_verificar):
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
+            
         else:
             self.cambioa_pag3()
 
@@ -734,6 +740,22 @@ class aplicacion(QMainWindow):
             QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
         else:
             self.cambioa_pag1()
+
+
+
+
+    def obtener_filas(self):
+        return self.pag1.obtener_filas()
+
+
+
+    def contraynombreP(self):
+        filas = self.obtener_filas()
+        if filas > 0:
+            ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
+            ventanaEDI.exec()
+        else:
+            QMessageBox.warning(self, "", "No hay nada para editar")
 
     def cambioa_pag111(self):
         self.variables_pag3()
@@ -774,10 +796,7 @@ class aplicacion(QMainWindow):
         self.variables_pag3()
         self.pasoa_bd()
         self.pag2.limpiar()
-        self.pag3.limpiar()   
-
-    def obtener_filas(self):
-        return self.pag1.obtener_filas()
+        self.pag3.limpiar()    
 
     def id_puesto(self):
         ventanadet=ventanaemedetalles(self.id_correcto)
@@ -787,12 +806,8 @@ class aplicacion(QMainWindow):
         self.apilar.setCurrentWidget(self.ventanad)
 
     def contraynombreP(self):
-        filas = self.obtener_filas()
-        if filas > 0:
-            ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
-            ventanaEDI.exec()
-        else:
-            QMessageBox.warning(self, "", "No hay nada para editar")
+        ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
+        ventanaEDI.exec()
 
     def contraynombrecorrectos(self):
         self.apilar.setCurrentWidget(self.ventanaedit)
@@ -856,6 +871,8 @@ class ventanacontra(QDialog):
         self.etiqueta.setGeometry(20, 10, 170, 30)
         self.contra = QLineEdit(self)  
         self.verifica = QPushButton('Verificar', self)
+        estilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(estilo)
         self.verifica.clicked.connect(self.verificacontra)
         layout = QVBoxLayout()
         layout.addWidget(self.contra)
@@ -879,10 +896,12 @@ class ventanaemedetalles(QDialog):
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 150) 
-        self.etiqueta = QLabel('Ingrese id del Puesto', self)
+        self.etiqueta = QLabel('Ingrese el nombre del Puesto', self)
         self.etiqueta.setGeometry(20, 10, 170, 30)
         self.id = QLineEdit(self)  
         self.verificaexis = QPushButton('Siguiente', self)
+        estilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(estilo)
         self.verificaexis.clicked.connect(self.verificaexistencia)
         layout = QVBoxLayout()
         layout.addWidget(self.id)
@@ -902,6 +921,7 @@ class ventanaemeeditar(QDialog):
         super().__init__()
         self.callback2= callback
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.tableWidget.setStyleSheet(style)
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(220, 0, 30, 30)
@@ -913,6 +933,8 @@ class ventanaemeeditar(QDialog):
         self.contral.setGeometry(10,85,160,15)
         self.contra = QLineEdit(self)  
         verifica = QPushButton('Verificar', self)
+        estilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(estilo)
         verifica.clicked.connect(self.verificacontraynombre)
         layout = QVBoxLayout()
         layout.addWidget(self.nombre)
