@@ -27,7 +27,7 @@ class vtn(QWidget):
               self.minimize_button = QPushButton("-", self)
               self.minimize_button.clicked.connect(self.showMinimized)
               self.minimize_button.setGeometry(920, 0, 40, 40)
-               self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
+              self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
 
               self.generar_formulario()
               self.show() ##visualice la ventana
