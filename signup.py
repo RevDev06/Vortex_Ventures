@@ -78,13 +78,13 @@ class SignScreen(QMainWindow):
 
 ##Guardado de cuenta
         self.sign_button = QPushButton("Sign up", self)
-        self.sign_button.setGeometry(window_width // 2 - 40, window_height // 2 + 100, 120, 40)
+        self.sign_button.setGeometry(window_width // 2 - 60, window_height // 2 + 100, 120, 40)
         self.sign_button.clicked.connect(self.signUp)
         self.sign_button.setFont(QFont('Arial',10))
 
 
         self.back_button = QPushButton("Back to Login", self)
-        self.back_button.setGeometry(window_width // 2 - 40, window_height // 2 + 160, 120, 40)
+        self.back_button.setGeometry(window_width // 2 - 60, window_height // 2 + 160, 120, 40)
         self.back_button.clicked.connect(self.vuelve)
         self.back_button.setFont(QFont('Arial',10))
 
