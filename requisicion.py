@@ -14,9 +14,13 @@ class vtn(QWidget):
 
        def inicializarUI(self):
               #configurar ventana
-              self.setGeometry(100,50,1000,800)
               self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-              self.setWindowTitle("Requisicion")
+              screen_geometry = QApplication.primaryScreen().availableGeometry()
+              window_width = 1000
+              window_height = 800
+              window_x = (screen_geometry.width() - window_width) // 2
+              window_y = (screen_geometry.height() - window_height) // 2
+              self.setGeometry(window_x, window_y, window_width, window_height)
 
               self.close_button = QPushButton("X", self)
               self.close_button.clicked.connect(self.close)
