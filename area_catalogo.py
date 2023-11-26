@@ -1,7 +1,7 @@
 import sys
-from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QTableWidgetItem, QLineEdit, QDialog, QMessageBox, QStackedWidget, QMainWindow, QLabel, QTableWidget,QPushButton, QHBoxLayout, QWidget, QVBoxLayout
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
 
 class VArea(QWidget):
     def __init__(self):
@@ -14,6 +14,17 @@ class VArea(QWidget):
 
     def inicializar(self):
         self.resize(1000, 800)
+
+        # Crear un degradado de color para el fondo
+        gradient = QLinearGradient(0, 0, self.width(), 0)
+        gradient.setColorAt(0, QColor("#0e212c"))  # Color más claro a la izquierda
+        gradient.setColorAt(0.5, QColor("#43423b"))  # Color más oscuro a la derecha
+        gradient.setColorAt(1,QColor("#816d50"))
+        # Establecer el degradado como fondo de la ventana
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
+        
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
@@ -26,8 +37,6 @@ class VArea(QWidget):
         self.tableWidget.setRowCount(self.fila)
         self.tableWidget.setColumnCount(self.columna)  
 
-        self.tableWidget.setStyleSheet("QTableWidget { background-color: black; }")
-        self.tableWidget.setStyleSheet("QTableWidget::item { border: .2px solid black; }")
         column_width = 325
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setVisible(False)
@@ -80,6 +89,8 @@ class VArea(QWidget):
                 self.tableWidget.item(fila, 0).setText(nid)
                 self.tableWidget.item(fila, 1).setText(nnombre)
             else:
+                stilo = """QDialog {background-color: #072d44}"""
+                self.setStyleSheet(stilo)
                 QMessageBox.warning(self, "", "No esxiste ningun area con esa Id")
 
     def cambio(self):
@@ -103,9 +114,11 @@ class VArea(QWidget):
         self.tableWidget.setRowCount(self.fila)
 
         ID= QTableWidgetItem(id)
+        ID.setTextAlignment(0x0104 | 0x0180)  # Qt.AlignmentFlag.AlignCenter
         self.tableWidget.setItem(self.fila - 1, 0, ID)
 
-        puesto = QTableWidgetItem(nombre)          
+        puesto = QTableWidgetItem(nombre)
+        puesto.setTextAlignment(0x0104 | 0x0180)  # Qt.AlignmentFlag.AlignCenter          
         self.tableWidget.setItem(self.fila - 1, 1, puesto)
 
         borrar = QPushButton('Borrar')
@@ -139,6 +152,8 @@ class emergente(QDialog):
         self.Idl.setGeometry(10,85,160,15)
         self.Id = QLineEdit(self)  
         verifica = QPushButton('Verificar', self)
+        stilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
         layout.addWidget(self.nombre)
@@ -151,6 +166,8 @@ class emergente(QDialog):
         id_texto = self.Id.text().strip()
 
         if not nombre_texto or not id_texto:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Ambos campos deben ser completados.")
         else:
             self.accept()
@@ -173,6 +190,8 @@ class emergente2(QDialog):
         self.Idl2.setGeometry(10,108,160,15)
         self.Id2 = QLineEdit(self)  
         verifica = QPushButton('Verificar', self)
+        stilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
         layout.addWidget(self.nombre)
@@ -185,6 +204,8 @@ class emergente2(QDialog):
         nombre_texto = self.nombre.text().strip()
         id_texto = self.Id.text().strip()
         if not nombre_texto or not id_texto:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Los campos deben ser completados.")
         else:
             self.accept()
@@ -202,6 +223,8 @@ class ventanacontra(QDialog):
         self.etiqueta.setGeometry(20, 10, 170, 30)
         self.contra = QLineEdit(self)  
         self.verifica = QPushButton('Verificar', self)
+        stilo = """QDialog {background-color: #072d44}"""
+        self.setStyleSheet(stilo)
         self.verifica.clicked.connect(self.verificacontra)
         layout = QVBoxLayout()
         layout.addWidget(self.contra)
@@ -213,10 +236,15 @@ class ventanacontra(QDialog):
             self.close()
             self.callback()
         else:
+            stilo = """QDialog {background-color: #072d44}"""
+            self.setStyleSheet(stilo)
             QMessageBox.warning(self, 'Contraseña incorrecta', 'La contraseña es incorrecta. Inténtelo de nuevo.')
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    with open('styles.css', 'r') as f:
+        style = f.read()
+    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
+    app.setStyleSheet(style)  # Aplicar el estilo global
     ventana = VArea()
     ventana.show()
     sys.exit(app.exec())
