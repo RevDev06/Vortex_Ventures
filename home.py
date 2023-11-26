@@ -20,7 +20,8 @@ class HomeWindow(QMainWindow):
         self.setGeometry(window_x, window_y, window_width, window_height)
 
         self.company_name = QLabel("VORTEX VENTURES", self)
-        self.company_name.setGeometry(450, 150, 120, 20)
+        self.company_name.setFont(QFont('Bookman Old Style',40))
+        self.company_name.setGeometry(250, 60, 600, 50)
         self.create_navigation_bar()
 
         gradient = QLinearGradient(0, self.height(), 0, 0)
