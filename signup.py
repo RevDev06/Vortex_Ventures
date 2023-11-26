@@ -5,6 +5,7 @@ from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
 
+
 con_db = database()
 
 
@@ -27,32 +28,45 @@ class SignScreen(QMainWindow):
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
 
-        # Create sign form elements
+        # Crear un degradado de color para el fondo
+        gradient = QLinearGradient(0, 0, self.width(), 0)
+        gradient.setColorAt(0, QColor("#0e212c"))  # Color más claro a la izquierda
+        gradient.setColorAt(0.5, QColor("#43423b"))  # Color más oscuro a la derecha
+        gradient.setColorAt(1,QColor("#816d50"))
+        # Establecer el degradado como fondo de la ventana
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
+
+        self.icon = QIcon
          # Create login form elements
         self.tittle = QLabel("SIGN UP", self)
-        self.tittle.setGeometry(window_width // 2 - 80, 150, 220, 100)
-        self.tittle.setFont(QFont("Roboto", 40))
+        self.tittle.setGeometry(window_width // 2 - 50, 150, 220, 80)
+        self.tittle.setFont(QFont("vintage", 20))
 
         self.username_label = QLabel("Username:", self)
         self.username_label.setGeometry(380, 300, 100, 30)
+        self.username_label.setFont(QFont('Arial',12))
 
         self.username_input = QLineEdit(self)
         self.username_input.setGeometry(460, 300, 200, 30)
 
         self.username_feedback = QLabel("", self)
         self.username_feedback.setGeometry(470, 330, 300, 30)
-##mio
+
         self.email_label = QLabel("Email:", self)
         self.email_label.setGeometry(380, 370, 100, 30)
+        self.email_label.setFont(QFont('Arial',12))
 
         self.email_input = QLineEdit(self)
         self.email_input.setGeometry(460, 370, 200, 30)
 
         self.email_feedback = QLabel("", self)
         self.email_feedback.setGeometry(470, 400, 300, 30)
-##mio
+
         self.password_label = QLabel("Password:", self)
         self.password_label.setGeometry(380, 440, 100, 30)
+        self.password_label.setFont(QFont('Arial',12))
 
         self.password_input = QLineEdit(self)
         self.password_input.setGeometry(460, 440, 200, 30)
@@ -65,19 +79,33 @@ class SignScreen(QMainWindow):
         self.sign_button = QPushButton("Sign up", self)
         self.sign_button.setGeometry(window_width // 2 - 40, window_height // 2 + 100, 120, 40)
         self.sign_button.clicked.connect(self.signUp)
+        self.sign_button.setFont(QFont('Arial',10))
 
-        self.sign_button = QPushButton("Back to Login", self)
-        self.sign_button.setGeometry(window_width // 2 - 40, window_height // 2 + 160, 120, 40)
-        self.sign_button.clicked.connect(self.signUp)
+
+        self.back_button = QPushButton("Back to Login", self)
+        self.back_button.setGeometry(window_width // 2 - 40, window_height // 2 + 160, 120, 40)
+        self.back_button.clicked.connect(self.vuelve)
+        self.back_button.setFont(QFont('Arial',10))
 
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
+        self.close_button.setStyleSheet("background-color:#5f5a4d; color:#ccc6ac;border-radius: 5px;")
+
 
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
+        self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
 
+        self.tittle.setStyleSheet("color:#251d1c;")
+        self.username_label.setStyleSheet(" color:#816d50;")
+        self.email_label.setStyleSheet(" color:#816d50;")
+        self.password_label.setStyleSheet(";color:#816d50;")
+
+        self.sign_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
+    
+        self.back_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
@@ -121,17 +149,45 @@ class SignScreen(QMainWindow):
             self.username_feedback.setText(
                 "Nombre de usuario ya se esta usando. Vuelve a intentarlo")
         return False
+    
+    def vuelve(self):
+        from login import LoginScreen
+        print("Redireccioando")
+        if not hasattr(self, 'login'):
+            self.login = LoginScreen()
+            self.login.show()
+            self.close()
+        else:
+            self.show()
+        
 
+    def paintEvent(self, event):
+       # Pintar un cuadrado en la ventana
+        painter = QPainter(self)
+
+        # Definir el color original
+        color_original = QColor("#b5b1a6")
+
+        # Ajustar el brillo del color original para el fondo
+        brillo_fondo = 150
+        color_fondo = color_original.lighter(brillo_fondo)
+        painter.fillRect(290, 130, 430, 500, color_fondo)
+
+        # Ajustar el brillo del color original para el borde
+        brillo_borde = 500
+        color_borde = color_original.lighter(brillo_borde)
+
+        # Dibujar un rectángulo más grande para el borde
+        ancho_borde = 10
+        painter.setPen(color_borde)  # Establecer el color del borde
+        painter.drawRect(270, 110, 470, 540)
 
 def main():
+    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
     with open('styles.css', 'r') as f:
         style = f.read()
-    app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
-    app.setStyleSheet(style)  # Aplicar el estilo global
+    app.setStyleSheet(style)
     signscreen = SignScreen()
     signscreen.show()
     sys.exit(app.exec())
 
-
-if __name__ == '__main__':
-    main()

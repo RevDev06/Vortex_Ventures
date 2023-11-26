@@ -5,7 +5,6 @@ from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
 from home import HomeWindow
-from signup import SignScreen
 
 con_db = database()
 con_db.select_db()
@@ -130,6 +129,7 @@ class LoginScreen(QMainWindow):
         return False
 
     def red_register(self):
+        from signup import SignScreen
         print("Redireccioando")
         if not hasattr(self, 'register'):
             self.register = SignScreen()
