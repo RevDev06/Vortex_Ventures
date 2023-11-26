@@ -1,11 +1,11 @@
 QProgressBar {
-    border: 2px solid grey;
+    border: 2px solid  #b58863;
     border-radius: 5px;
     text-align: center;
 }
 
 QProgressBar::chunk {
-    background-color: #05B8CC;
+    background-color: #a79e9c;
     width: 20px;
 }
 
@@ -49,19 +49,30 @@ QDateTimeEdit{
     border: 1px #43423b
 }
 /*home*/
+QMenu{
+    background-color: #9e8f7d;
+    border: 1px solid #e1dac9;
+}
 QMenuBar{
-    background-color: #C9B2C4;
-    color:#5F419B;
-    border: 1px #aaa1b7;
+    background-color: #1a1617;
+    color:#c1c1bb;
 }
 QMenuBar::item{
-    background-color: #C9B2C4;
-    color :#2B322B ;
-    padding: 5px 10px;
+    background-color: #1a1617;
+    color :#c1c1bb ;
+    padding: 10px 20px;
+    font-size:16px;
 }
-
+QMenuBar {
+    font-size: 12px;  /* Ajusta el tamaño de la fuente del menú */
+}
 QMenuaBar::item:selected{
-    background-color:#B3C89F;
+    background-color:#756d5d;
+    color:#1a1617;
 }
-
+HomeWindow {
+    background-image: url('logo.png'); /* Reemplaza 'ruta_de_tu_imagen.jpg' con la ruta de tu imagen */
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
