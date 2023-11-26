@@ -20,6 +20,7 @@ class database:
 
             if self.db.is_connected():
                 print("Conexion Exitosa....")
+                
 
         except Exception as ex:
             print(ex)
