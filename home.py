@@ -23,6 +23,20 @@ class HomeWindow(QMainWindow):
         self.company_name.setGeometry(450, 150, 120, 20)
         self.create_navigation_bar()
 
+        gradient = QLinearGradient(0, self.height(), 0, 0)
+        gradient.setColorAt(0, QColor("#0a0908"))  # Color más oscuro en la parte inferior
+        gradient.setColorAt(0.25, QColor("#11212d"))
+        gradient.setColorAt(0.5, QColor("#3d4d55"))
+        gradient.setColorAt(0.75, QColor("#5e503f"))  # Color más claro en la parte superior
+        gradient.setColorAt(1, QColor("#171614")) 
+        # Establecer el degradado como fondo de la ventana
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
+
+        palette = self.palette()
+        palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
+
 
     def create_navigation_bar(self):
         menu_bar = self.menuBar()
@@ -31,13 +45,17 @@ class HomeWindow(QMainWindow):
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
+        self.close_button.setStyleSheet("background-color:#5f5a4d; color:#ccc6ac;border-radius: 5px;")
+
 
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
+        self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
+
 ##nombre de la barra
         file_contratacion = menu_bar.addMenu("&CONTRATACIÓN")
-        file_contratacion.setFont(QFont('Arial',10))
+        file_contratacion.setFont(QFont('Arial',9))
 ##puesto
         action_p = QAction("&PUESTO",self)
         action_p.triggered.connect(self.redirect_to_window)
@@ -60,7 +78,7 @@ class HomeWindow(QMainWindow):
         file_contratacion.addAction(action_can)
        
         file_catalogos = menu_bar.addMenu("&CATALOGOS")
-        file_catalogos.setFont(QFont('Arial',10))
+        file_catalogos.setFont(QFont('Arial',9))
 #area
         action_a = QAction("&CANDIDATOS",self)
         action_a.triggered.connect(self.redirect_to_window)
@@ -134,3 +152,4 @@ if __name__ == "__main__":
     home_window = HomeWindow()
     home_window.show()
     sys.exit(app.exec())
+    
