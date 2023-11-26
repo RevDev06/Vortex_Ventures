@@ -10,9 +10,13 @@ class v(QWidget):
 
       def inicializarUI(self):
             #configurar ventana
-            self.setGeometry(100,50,1000,800)
-
             self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+            screen_geometry = QApplication.primaryScreen().availableGeometry()
+            window_width = 1000
+            window_height = 800
+            window_x = (screen_geometry.width() - window_width) // 2
+            window_y = (screen_geometry.height() - window_height) // 2
+            self.setGeometry(window_x, window_y, window_width, window_height)
 
             self.close_button = QPushButton("X", self)
             self.close_button.clicked.connect(self.close)
@@ -32,10 +36,8 @@ class v(QWidget):
 
               # Crear un degradado de color para el fondo
             gradient = QLinearGradient(0, 0, self.width(), 0)
-            gradient.setColorAt(0, QColor("#06141b"))  # Color más oscuro a la izquierda
-            gradient.setColorAt(0.5, QColor("#11212d")) 
-            gradient.setColorAt(1, QColor("#5e503f")) 
-             # Color más claro a la derecha
+            gradient.setColorAt(0, QColor("#1a1617"))  # Color más oscuro a la izquierda
+            gradient.setColorAt(1, QColor("#2d241b"))  # Color más claro a la derecha
             # Establecer el degradado como fondo de la ventana
             palette = self.palette()
             palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
@@ -73,7 +75,7 @@ class v(QWidget):
             self.puesto_vacante_input =QLineEdit(self)
             self.puesto_vacante_input.resize(380,24)
             self.puesto_vacante_input.move(301,86)
-            self.puesto_vacante_input.setStyleSheet("background-color:#a9a895; border:#2b2726; color:#2b2726;")
+            self.puesto_vacante_input.setStyleSheet("background-color:#a9a895; border:#ccc6ac; color:#2b2726;")
 
       #números de vacantes
             n_vacantes_label = QLabel(self)
@@ -94,7 +96,7 @@ class v(QWidget):
             self.revisado_input = QLineEdit(self)
             self.revisado_input.resize(930,24)
             self.revisado_input.move(20,140)
-            self.revisado_input.setStyleSheet("background-color:#867c61; border:#2b2726; color:#2b2726;")
+            self.revisado_input.setStyleSheet("background-color:#867c61; border:#ccc6ac; color:#2b2726;")
             
             nom_puesto = QLabel(self)
             nom_puesto.setText("Nombre y puesto")
@@ -122,8 +124,6 @@ class v(QWidget):
             button.setFont(QFont('Arial',10))
             button.resize(120,35)
             button.move(20,304)
-
-            
 
 if __name__ == '__main__':
    with open('styles.css', 'r') as f:
