@@ -39,7 +39,7 @@ class LoginScreen(QMainWindow):
         self.icon = QIcon
 
         self.tittle = QLabel("LOGIN", self)
-        self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
+        self.tittle.setGeometry(480, window_height // 2 - 250, 100, 30)
         self.tittle.setFont(QFont('vintage',20))
 
         self.username_label = QLabel("Username:", self)
