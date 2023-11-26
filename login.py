@@ -8,10 +8,8 @@ from home import HomeWindow
 from signup import SignScreen
 
 con_db = database()
-<<<<<<< HEAD
-
-=======
->>>>>>> 6d08ee0bb3fa915a4e715e5e15581497a37e6c22
+con_db.select_db()
+con_db.verifAndCreateDataBase()
 
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -44,11 +42,7 @@ class LoginScreen(QMainWindow):
 
         self.tittle = QLabel("LOGIN", self)
         self.tittle.setGeometry(480, window_height // 2 - 250, 100, 30)
-<<<<<<< HEAD
-        self.tittle.setFont(QFont('vintage',16))
-=======
         self.tittle.setFont(QFont('vintage',20))
->>>>>>> 6d08ee0bb3fa915a4e715e5e15581497a37e6c22
 
         self.username_label = QLabel("Username:", self)
         self.username_label.setGeometry(340, window_height // 2 - 200, 100, 30)
