@@ -37,8 +37,13 @@ class database:
 
     def verifAndCreateDataBase(self):
         try:
+            self.cursor.execute("SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;")
+            self.cursor.execute("SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;")
+            self.cursor.execute("SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';")
+            self.comit()
+
             # Create the database if it doesn't exist
-            sql_create_db = "CREATE SCHEMA IF NOT EXISTS `db_poo` DEFAULT CHARACTER SET utf8mb4;"
+            sql_create_db = "CREATE DATABASE IF NOT EXISTS `db_poo` DEFAULT CHARACTER SET utf8mb4;"
             self.cursor.execute(sql_create_db)
             self.comit()
 
@@ -48,6 +53,8 @@ class database:
             # Define the SQL statements for table creation
             sql_statements = """
 
+
+            
                 -- -----------------------------------------------------
                 -- Table `db_poo`.`autorizacion`
                 -- -----------------------------------------------------
@@ -424,12 +431,18 @@ class database:
                 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
                 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
                 
+
+                Insert into usuarios (correo, nombre, contrasenia) values ('123', '123', '123');
             """
 
             # Execute the SQL statements
             
-            self.cursor.execute(sql_statements, multi=True)
-            self.comit()
+            statements = [stmt.strip() for stmt in sql_statements.split(';') if stmt.strip()]
+
+            # Execute each SQL statement
+            for statement in statements:
+              self.cursor.execute(statement)
+              self.comit()
 
             print("Base de datos y tablas creadas exitosamente")
 
