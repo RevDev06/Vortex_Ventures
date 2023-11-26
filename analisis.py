@@ -32,8 +32,10 @@ class v(QWidget):
 
               # Crear un degradado de color para el fondo
             gradient = QLinearGradient(0, 0, self.width(), 0)
-            gradient.setColorAt(0, QColor("#1a1617"))  # Color más oscuro a la izquierda
-            gradient.setColorAt(1, QColor("#2d241b"))  # Color más claro a la derecha
+            gradient.setColorAt(0, QColor("#06141b"))  # Color más oscuro a la izquierda
+            gradient.setColorAt(0.5, QColor("#11212d")) 
+            gradient.setColorAt(1, QColor("#867c61")) 
+             # Color más claro a la derecha
             # Establecer el degradado como fondo de la ventana
             palette = self.palette()
             palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))
@@ -71,6 +73,8 @@ class v(QWidget):
             self.puesto_vacante_input =QLineEdit(self)
             self.puesto_vacante_input.resize(380,24)
             self.puesto_vacante_input.move(301,86)
+            self.puesto_vacante_input.setStyleSheet("background-color:#a9a895; border:#2b2726; color:#2b2726;")
+
       #números de vacantes
             n_vacantes_label = QLabel(self)
             n_vacantes_label.setText("<b>Número de Vacantes</b>")
@@ -80,6 +84,7 @@ class v(QWidget):
             self.n_vacantes_input = QLineEdit(self)
             self.n_vacantes_input.resize(250,24)
             self.n_vacantes_input.move(700,86)
+            
       ##revisado por:
             revisado_label = QLabel(self)
             revisado_label.setText("<b>Revisado por:</b>")
@@ -89,6 +94,7 @@ class v(QWidget):
             self.revisado_input = QLineEdit(self)
             self.revisado_input.resize(930,24)
             self.revisado_input.move(20,140)
+            self.revisado_input.setStyleSheet("background-color:#867c61; border:#2b2726; color:#2b2726;")
             
             nom_puesto = QLabel(self)
             nom_puesto.setText("Nombre y puesto")
@@ -103,6 +109,8 @@ class v(QWidget):
             self.autorizado_input = QLineEdit(self)
             self.autorizado_input.resize(930,24)
             self.autorizado_input.move(20,234)
+            self.autorizado_input.setStyleSheet("background-color:#867c61; border:#ccc6ac; color:#2b2726;")
+
             
             nom_puesto2 = QLabel(self)
             nom_puesto2.setText("Nombre y puesto")
