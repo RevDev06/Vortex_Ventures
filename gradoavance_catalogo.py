@@ -13,7 +13,12 @@ class Vgradoavnce(QWidget):
         self.generartabla()
 
     def inicializar(self):
-        self.resize(1000, 800)
+        screen_geometry = QApplication.primaryScreen().availableGeometry()
+        window_width = 1000
+        window_height = 800
+        window_x = (screen_geometry.width() - window_width) // 2
+        window_y = (screen_geometry.height() - window_height) // 2
+        self.setGeometry(window_x, window_y, window_width, window_height)
 
         # Crear un degradado de color para el fondo
         gradient = QLinearGradient(0, 0, self.width(), 0)
