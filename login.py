@@ -9,7 +9,7 @@ from signup import SignScreen
 
 con_db = database()
 con_db.select_db()
-con_db.verifAndCreateDataBase()
+
 
 class LoginScreen(QMainWindow):
     def __init__(self):
