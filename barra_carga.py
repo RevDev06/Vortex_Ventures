@@ -45,6 +45,19 @@ class Window(QWidget):
     def auto_increment(self):
         value = self.prog_bar.value()
         self.prog_bar.setValue(value + 1)
+        if self.prog_bar.value() == 100:
+            self.timer.stop()
+            self.red_login()
+
+    def red_login(self):
+        from login import LoginScreen
+        print("Redireccioando")
+        if not hasattr(self, 'login'):
+            self.login = LoginScreen()
+            self.login.show()
+            self.close()
+        else:
+            self.show()
 
 
 if __name__ == '__main__':
