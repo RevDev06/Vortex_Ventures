@@ -55,6 +55,9 @@ class VPuesto(QWidget):
         self.tableWidget.setCellWidget(self.fila - 1, 1, borrar)
         borrar.clicked.connect(self.borra)
 
+    def obtener_filas(self):
+        return self.fila
+
     def borra(self):
         index = self.tableWidget.indexAt(self.sender().pos())
         if index.isValid():
@@ -621,7 +624,7 @@ class aplicacion(QMainWindow):
         self.setCentralWidget(self.apilar)
         self.apilar.setCurrentWidget(self.pag1)
         self.inicializar()
-
+        
     def inicializar(self):
         self.resize(1000, 800)
 
@@ -638,8 +641,8 @@ class aplicacion(QMainWindow):
 
     def conexiones(self):
         self.pag1.agregar.clicked.connect(self.pedir_contra)
-        self.pag2.botona_pag.clicked.connect(self.cambioa_pag3)
-        self.pag3.botona_pag.clicked.connect(self.cambioa_pag1)
+        self.pag2.botona_pag.clicked.connect(self.verificatodolleno)
+        self.pag3.botona_pag.clicked.connect(self.verificatodolleno2)
         self.pag3.botonregreso.clicked.connect(self.cambioa_pag2)
         self.pag2.botoncancelar.clicked.connect(self.cancelar_puesto)
         self.pag1.detalles.clicked.connect(self.id_puesto)
@@ -649,9 +652,88 @@ class aplicacion(QMainWindow):
         self.ventanad2.botona_pag.clicked.connect(self.cambioa_pag11)
         self.pag1.editar.clicked.connect(self.contraynombreP)
         self.ventanaedit.botoncancelar.clicked.connect(self.cambioa_pag11)
-        self.ventanaedit.botona_pag.clicked.connect(self.ventanaedi2)
-        self.ventanaedit2.botona_pag.clicked.connect(self.cambioa_pag111)
+        self.ventanaedit.botona_pag.clicked.connect(self.verifica)
+        self.ventanaedit2.botona_pag.clicked.connect(self.verifica2)
         self.ventanaedit2.botoncancelar.clicked.connect(self.aventanaedi)
+
+    def verifica(self):
+        variables_a_verificar = [
+            self.ventanaedit.nom_t.text(),
+            self.ventanaedit.codp_t.text(),
+            self.ventanaedit.area_t.text(),
+            self.ventanaedit.super_t.text(),
+            self.ventanaedit.jornada_t.text(),
+            self.ventanaedit.remuneracion_t.text(),
+            self.ventanaedit.prestaciones_t.text(),
+            self.ventanaedit.descripccion_t.text(),
+            self.ventanaedit.funciones_t.text(),
+            self.ventanaedit.edad_t.text(),
+            self.ventanaedit.sexo_t.text(),
+            self.ventanaedit.civil_t.text(),
+            self.ventanaedit.escolaridad_t.text(),
+            self.ventanaedit.gradoa_t.text(),
+            self.ventanaedit.carrera_t.text()
+              ]
+        if any(not campo.replace(" ", "") for campo in variables_a_verificar):
+            QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
+        else:
+            self.ventanaedi2()
+        
+    def verifica2(self):
+        variables_a_verificar = [
+            self.ventanaedit2.experiencia_t.text(),
+            self.ventanaedit2.conocimentos_t.text(),
+            self.ventanaedit2.mequipo_t.text(),
+            self.ventanaedit2.rfisicos_t.text(),
+            self.ventanaedit2.rpsicologicos_t.text(),
+            self.ventanaedit2.responsabilidades_t.text(),
+            self.ventanaedit2.condiciones_t.text(),
+            self.ventanaedit2.idiomast_t.text(),
+            self.ventanaedit2.habilidades_t.text()
+        ]
+        if any(not campo.strip() for campo in variables_a_verificar):
+            QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
+        else:
+            self.cambioa_pag111()    
+
+    def verificatodolleno(self):
+        variables_a_verificar = [
+            self.pag2.nom_t.text(),
+            self.pag2.codp_t.text(),
+            self.pag2.area_t.text(),
+            self.pag2.super_t.text(),
+            self.pag2.jornada_t.text(),
+            self.pag2.remuneracion_t.text(),
+            self.pag2.prestaciones_t.text(),
+            self.pag2.descripccion_t.text(),
+            self.pag2.funciones_t.text(),
+            self.pag2.edad_t.text(),
+            self.pag2.sexo_t.text(),
+            self.pag2.civil_t.text(),
+            self.pag2.escolaridad_t.text(),
+            self.pag2.gradoa_t.text(),
+            self.pag2.carrera_t.text()]
+        if any(not campo.strip() for campo in variables_a_verificar):
+            QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
+        else:
+            self.cambioa_pag3()
+
+    def verificatodolleno2(self):
+        variables_a_verificar = [
+            self.pag3.experiencia_t.text(),
+            self.pag3.conocimentos_t.text(),
+            self.pag3.mequipo_t.text(),
+            self.pag3.rfisicos_t.text(),
+            self.pag3.rpsicologicos_t.text(),
+            self.pag3.responsabilidades_t.text(),
+            self.pag3.condiciones_t.text(),
+            self.pag3.idiomast_t.text(),
+            self.pag3.habilidades_t.text()
+        ]
+        if any(not campo.strip() for campo in variables_a_verificar):
+            QMessageBox.warning(self, "Campos Vacíos", "Todos los campos deben ser completados.")
+        else:
+            self.cambioa_pag1()
 
     def cambioa_pag111(self):
         self.variables_pag3()
@@ -692,7 +774,10 @@ class aplicacion(QMainWindow):
         self.variables_pag3()
         self.pasoa_bd()
         self.pag2.limpiar()
-        self.pag3.limpiar()    
+        self.pag3.limpiar()   
+
+    def obtener_filas(self):
+        return self.pag1.obtener_filas()
 
     def id_puesto(self):
         ventanadet=ventanaemedetalles(self.id_correcto)
@@ -702,8 +787,12 @@ class aplicacion(QMainWindow):
         self.apilar.setCurrentWidget(self.ventanad)
 
     def contraynombreP(self):
-        ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
-        ventanaEDI.exec()
+        filas = self.obtener_filas()
+        if filas > 0:
+            ventanaEDI=ventanaemeeditar(self.contraynombrecorrectos)
+            ventanaEDI.exec()
+        else:
+            QMessageBox.warning(self, "", "No hay nada para editar")
 
     def contraynombrecorrectos(self):
         self.apilar.setCurrentWidget(self.ventanaedit)
@@ -790,7 +879,7 @@ class ventanaemedetalles(QDialog):
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 150) 
-        self.etiqueta = QLabel('Ingrese el nombre del Puesto', self)
+        self.etiqueta = QLabel('Ingrese id del Puesto', self)
         self.etiqueta.setGeometry(20, 10, 170, 30)
         self.id = QLineEdit(self)  
         self.verificaexis = QPushButton('Siguiente', self)
@@ -807,8 +896,6 @@ class ventanaemedetalles(QDialog):
             self.callback3()
         else:
             QMessageBox.warning(self, 'Id no encontrada', 'La Id es incorrecta. Inténtelo de nuevo.')
-
-
 
 class ventanaemeeditar(QDialog):
     def __init__(self, callback):
