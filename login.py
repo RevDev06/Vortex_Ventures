@@ -8,8 +8,6 @@ from home import HomeWindow
 from signup import SignScreen
 
 con_db = database()
-con_db.select_db()
-
 
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -41,7 +39,7 @@ class LoginScreen(QMainWindow):
         self.icon = QIcon
 
         self.tittle = QLabel("LOGIN", self)
-        self.tittle.setGeometry(480, window_height // 2 - 250, 100, 30)
+        self.tittle.setGeometry(480, window_height // 2 - 300, 100, 30)
         self.tittle.setFont(QFont('vintage',20))
 
         self.username_label = QLabel("Username:", self)
@@ -75,10 +73,13 @@ class LoginScreen(QMainWindow):
         self.close_button = QPushButton("X", self)
         self.close_button.clicked.connect(self.close)
         self.close_button.setGeometry(960, 0, 40, 40)
+        self.close_button.setStyleSheet("background-color:#5f5a4d; color:#ccc6ac;border-radius: 5px;")
+
 
         self.minimize_button = QPushButton("-", self)
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
+        self.minimize_button.setStyleSheet("background-color:#867c61; color:#ccc6ac;border-radius: 5px;")
 
         self.register_button = QPushButton("Register Now", self)
         self.register_button.clicked.connect(self.red_register)
@@ -90,8 +91,6 @@ class LoginScreen(QMainWindow):
         self.password_label.setStyleSheet(";color:#816d50;")
 
         self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
-        self.close_button.setStyleSheet("background-color: #fae9cc; color: white;")
-        self.minimize_button.setStyleSheet("background-color: #d2c499; color: black;")
         self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
 
     def mousePressEvent(self, event):
@@ -148,7 +147,7 @@ class LoginScreen(QMainWindow):
         # Ajustar el brillo del color original para el fondo
         brillo_fondo = 150
         color_fondo = color_original.lighter(brillo_fondo)
-        painter.fillRect(290, 100, 430, 430, color_fondo)
+        painter.fillRect(290, 90, 430, 430, color_fondo)
 
         # Ajustar el brillo del color original para el borde
         brillo_borde = 500
@@ -157,7 +156,7 @@ class LoginScreen(QMainWindow):
         # Dibujar un rectángulo más grande para el borde
         ancho_borde = 10
         painter.setPen(color_borde)  # Establecer el color del borde
-        painter.drawRect(270, 90, 470, 470)
+        painter.drawRect(270, 70, 470, 470)
 
 def main():
     app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
