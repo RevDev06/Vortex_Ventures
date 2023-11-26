@@ -4,6 +4,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
+from barra_carga import Window
 from home import HomeWindow
 
 con_db = database()
@@ -15,7 +16,7 @@ class LoginScreen(QMainWindow):
         super().__init__()
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
+        
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 1000
         window_height = 800
@@ -93,6 +94,7 @@ class LoginScreen(QMainWindow):
 
         self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
         self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
+        self.barra.close()
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
@@ -109,7 +111,6 @@ class LoginScreen(QMainWindow):
         sql = "SELECT contrasenia, nombre FROM usuarios WHERE nombre = %s"
         con_db.cursor.execute(sql, (username,))
         result = con_db.cursor.fetchone()
-
         db_password = result[0]
         user = result[1]
 
@@ -169,7 +170,7 @@ def main():
     with open('styles.css', 'r') as f:
         style = f.read()
     app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
-    app.setStyleSheet(style)  
+    app.setStyleSheet(style)
     login_screen = LoginScreen()
     login_screen.show()
     sys.exit(app.exec())
