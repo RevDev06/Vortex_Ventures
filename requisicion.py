@@ -216,28 +216,13 @@ class vtn(QWidget):
               vacante_button6.toggled.connect(self.on_toggle)
 
        ##botton de enviar
-              cancelar_button = QPushButton(self)
-              cancelar_button.setText("Cancelar")
-              cancelar_button.setFont(QFont('Arial',10))
-              cancelar_button.setGeometry(180, 330, 100, 35)
-              cancelar_button.clicked.connect(self.back_home)
-
-              enviar_button = QPushButton(self)
-              enviar_button.setText("Enviar Requisición")
-              enviar_button.setFont(QFont('Arial',10))
-              enviar_button.setGeometry(20, 330, 140, 35)
+              self.enviar_button = QPushButton(self)
+              self.enviar_button.setText("Enviar Requisición")
+              self.enviar_button.setFont(QFont('Arial',10))
+              self.enviar_button.resize(120,35)
+              self.enviar_button.move(20,330)
+              self.enviar_button.clicked.connect(self.BDInsert)
        ##radiobutton
-
-       def back_home(self):
-              from home import HomeWindow
-              if not hasattr(self, 'home_window'):
-                     self.home_window = HomeWindow()
-                     self.home_window.show()
-                     self.close()
-              else:
-                     self.show()
-
-
        def on_toggle(self):
               sender =self.sender()##esto se hace para que se realice la funcion de poder seleccionar
               if sender.isChecked():##y que cuando se seleccione se muestre por consola
@@ -280,12 +265,6 @@ class vtn(QWidget):
               sql = "SELECT folio FROM requisicion WHERE folio = %s"
               con_db.cursor.execute(sql, (folio,))
               result = con_db.cursor.fetchone()
-              """`v_gene_por_id` INT(5) NOT NULL,
-              `tipo_vacante_id` INT(5) NOT NULL,
-              `autorizacion_id` INT(5) NOT NULL,
-              `puesto_id` INT(5) NOT NULL,
-              `areas_id` INT(5) NOT NULL,
-              `med_public_id` INT(5) NOT NULL,"""
               if result is None:
                      print("Añadir")
                      sql = "INSERT INTO requisicion (v_gene_por, tipo_vacante_id, autorizacion_id, puesto_id, areas_id, med_public_id, folio, fechaEla, nombre, puesto, area, fechaReclu, fechaInicio, num_vacantes ) VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s)"
