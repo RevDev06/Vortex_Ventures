@@ -4,6 +4,15 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from requisicion import vtn 
 from analisis import v
+from area_catalogo import VArea
+from carrera_catalogo import Vcarrera
+from documentossoli_catalogo import Vdocumentossoli
+from escolaridad_catalogo import Vescolaridad
+from estadocivil_catalogo import Vestadocivil
+from gradoavance_catalogo import Vgradoavnce
+from habilidades_catalogo import Vhabilidad
+from idioma_catalogo import Vidioma
+from mediopb_catalogo import Vmediopb
 
 class HomeWindow(QMainWindow):
     abrir_ventana = pyqtSignal()
@@ -81,40 +90,40 @@ class HomeWindow(QMainWindow):
         file_catalogos = menu_bar.addMenu("&CATALOGOS")
         file_catalogos.setFont(QFont('Arial',9))
 #area
-        action_a = QAction("&CARRERA",self)
+        action_a = QAction("&CANDIDATOS",self)
         action_a.triggered.connect(self.redirect_to_window)
         file_catalogos.addAction(action_a)
 #carrera
         action_ca = QAction("&AREA",self)
-        action_ca.triggered.connect(self.redirect_to_window)
+        action_ca.triggered.connect(self.area)
         file_catalogos.addAction(action_ca)
 #escolaridad
-        action_esc = QAction("&ESCOLARIDAD",self)
-        action_esc.triggered.connect(self.redirect_to_window)
+        action_esc = QAction("&CESCOLARIDAD",self)
+        action_esc.triggered.connect(self.escolaridad)
         file_catalogos.addAction(action_esc)
 ##estado civil
         action_ec = QAction("&ESTADO CIVIL",self)
-        action_ec.triggered.connect(self.redirect_to_window)
+        action_ec.triggered.connect(self.estadocivil)
         file_catalogos.addAction(action_ec)
 #grado de avance
         action_ga = QAction("&GRADO DE AVANCE",self)
-        action_ga.triggered.connect(self.redirect_to_window)
+        action_ga.triggered.connect(self.gradoavance)
         file_catalogos.addAction(action_ga)
 ##habilidades
         action_ha = QAction("&HABILIDADES",self)
-        action_ha.triggered.connect(self.redirect_to_window)
+        action_ha.triggered.connect(self.habilidades)
         file_catalogos.addAction(action_ha)
 ##idioma
         action_id = QAction("&IDIOMA",self)
-        action_id.triggered.connect(self.redirect_to_window)
+        action_id.triggered.connect(self.idioma)
         file_catalogos.addAction(action_id)
 ##medio de publicidad
         action_mp = QAction("&MEDIO DE PUBLICIDAD",self)
-        action_mp.triggered.connect(self.redirect_to_window)
+        action_mp.triggered.connect(self.mediopb)
         file_catalogos.addAction(action_mp)
 ##documentos solicitados
         action_ds = QAction("&DOCUMENTOS SOLICITADOS",self)
-        action_ds.triggered.connect(self.redirect_to_window)
+        action_ds.triggered.connect(self.documentossoli)
         file_catalogos.addAction(action_ds)
         
     def requisicion(self):
@@ -134,9 +143,73 @@ class HomeWindow(QMainWindow):
         else:
             self.show()
 
+    def area(self):
+        if not hasattr(self,'v_area'):
+            self.v_area=VArea()
+            self.v_area.show()
+            self.close()
+        else:
+            self.show()
+    def carrera(self):
+        if not hasattr(self,'v_carrera'):
+            self.v_carrera = Vcarrera()
+            self.v_carrera.show()
+            self.close()
+        else:
+            self.show()
+    def documentossoli(self):
+        if not hasattr(self,'v_soli'):
+            self.v_soli = Vdocumentossoli()
+            self.v_soli.show()
+            self.close()
+        else:
+            self.show()
+    def escolaridad(self):
+        if not hasattr(self,'v_esc'):
+            self.v_esc = Vescolaridad()
+            self.v_esc.show()
+            self.close()
+        else:
+            self.show()
+    def estadocivil(self):
+        if not hasattr(self,'v_ec'):
+            self.v_ec = Vestadocivil()
+            self.v_ec.show()
+            self.close()
+        else:
+            self.show()
+    def gradoavance(self):
+        if not hasattr(self,'v_ga'):
+            self.v_ga = Vgradoavnce()
+            self.v_ga.show()
+            self.close()
+        else:
+            self.show()
+    def habilidades(self):
+        if not hasattr(self,'v_ha'):
+            self.v_ha = Vhabilidad()
+            self.v_ha.show()
+            self.close()
+        else:
+            self.show()
+    def idioma(self):
+        if not hasattr(self,'v_idm'):
+            self.v_idm = Vidioma()
+            self.v_idm.show()
+            self.close()
+        else:
+            self.show()
+    def mediopb(self):
+        if not hasattr(self,'v_pb'):
+            self.v_pb = Vmediopb()
+            self.v_pb.show()
+            self.close()
+        else:
+            self.show()
+
     def redirect_to_window(self):
         self.vtn_catalogos
-
+        
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
