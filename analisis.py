@@ -10,7 +10,12 @@ class v(QWidget):
 
       def inicializarUI(self):
             #configurar ventana
-            self.setGeometry(100,50,1000,800)
+            screen_geometry = QApplication.primaryScreen().availableGeometry()
+              window_width = 1000
+              window_height = 600
+              window_x = (screen_geometry.width() - window_width) // 2
+              window_y = (screen_geometry.height() - window_height) // 2
+              self.setGeometry(window_x, window_y, window_width, window_height)
 
             self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 

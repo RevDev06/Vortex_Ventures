@@ -36,11 +36,12 @@ class vtn(QWidget):
               self.generar_formulario()
               self.show() ##visualice la ventana
 
-         # Crear un degradado de color para el fondo
+              # Crear un degradado de color para el fondo
               gradient = QLinearGradient(0, 0, self.width(), 0)
               gradient.setColorAt(0, QColor("#06141b"))  # Color más oscuro a la izquierda
-              gradient.setColorAt(0.5, QColor("#2d241b")) 
-              gradient.setColorAt(1, QColor("#1a1617")) 
+              gradient.setColorAt(0.5, QColor("#11212d")) 
+              gradient.setColorAt(1, QColor("#5e503f")) 
+              # Color más claro a la derecha
               # Establecer el degradado como fondo de la ventana
               palette = self.palette()
               palette.setBrush(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QBrush(gradient))

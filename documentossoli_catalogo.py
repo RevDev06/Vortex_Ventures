@@ -37,6 +37,16 @@ class Vdocumentossoli(QWidget):
         self.minimize_button.clicked.connect(self.showMinimized)
         self.minimize_button.setGeometry(920, 0, 40, 40)
 
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPosition().toPoint()
+
+
+    def mouseMoveEvent(self, event):
+        self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+        self.dragPos = event.globalPosition().toPoint()
+        event.accept()
+
+
     def generartabla(self):
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(self.fila)
