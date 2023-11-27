@@ -4,7 +4,6 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from conex_db import database
-from barra_carga import Window
 from home import HomeWindow
 
 con_db = database()
@@ -16,7 +15,6 @@ class LoginScreen(QMainWindow):
         super().__init__()
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 1000
         window_height = 800
@@ -94,7 +92,7 @@ class LoginScreen(QMainWindow):
 
         self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
         self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
-        self.barra.close()
+
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
