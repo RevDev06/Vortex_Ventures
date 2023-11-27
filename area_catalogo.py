@@ -2,6 +2,12 @@ import sys
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
+from conex_db import database
+##crear una ventana
+
+con_db = database()
+con_db.verifAndCreateDataBase()
+con_db.select_db()
 
 class VArea(QWidget):
     def __init__(self):
@@ -169,6 +175,7 @@ class emergente(QDialog):
         stilo = """QDialog {background-color: #072d44}"""
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
+        verifica.clicked.connect(self.BDInsert)
         layout = QVBoxLayout()
         layout.addWidget(self.nombre)
         layout.addWidget(self.Id)
@@ -183,8 +190,28 @@ class emergente(QDialog):
             stilo = """QDialog {background-color: #072d44}"""
             self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Ambos campos deben ser completados.")
+
         else:
             self.accept()
+    def BDInsert(self):
+        n = self.nombre.text()
+        i = self.Id.text()
+
+        sql = "SELECT area FROM area WHERE area = %s"
+        con_db.cursor.execute(sql, (n,))
+        result = con_db.cursor.fetchone()
+        if result is None:
+                print("Añadir")
+                sql = "INSERT INTO area (id, area) VALUES (%s, %s)"
+                values = (i, n)
+                con_db.cursor.execute(sql, values)
+                con_db.comit()
+                print("Se pudo")
+                #Se indica si el registro fue exitoso
+                print("requisitos añadidos correctamente.")
+        else:
+                print("Ya existe")
+    
 
 class emergente2(QDialog):
     def __init__(self):
@@ -207,6 +234,7 @@ class emergente2(QDialog):
         stilo = """QDialog {background-color: #072d44}"""
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
+        verifica.clicked.connect(self.BDModifica)
         layout = QVBoxLayout()
         layout.addWidget(self.nombre)
         layout.addWidget(self.Id)
@@ -223,6 +251,26 @@ class emergente2(QDialog):
             QMessageBox.warning(self, "Campos Vacíos", "Los campos deben ser completados.")
         else:
             self.accept()
+
+    def BDModifica(self):
+        n = self.nombre.text()
+        i1 = self.Id.text()
+        i2 = self.Id2.text()
+
+        sql = "SELECT id FROM area WHERE area = %s"
+        con_db.cursor.execute(sql, (i1,))
+        result = con_db.cursor.fetchone()
+        if result is None:
+                print("Añadir")
+                sql = "UPDATE area set id=%s, area = %s where id=%s"
+                values = (i2, n, i1)
+                con_db.cursor.execute(sql, values)
+                con_db.comit()
+                print("Se pudo")
+                #Se indica si el registro fue exitoso
+                print("requisitos añadidos correctamente.")
+        else:
+                print("Ya existe")
 
 class ventanacontra(QDialog):
     def __init__(self, callback):
