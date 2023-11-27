@@ -3,6 +3,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 import sys
 from test_db import TestDatabase
+from conex_db import database
 
 con_db = database()
 con_db.verifAndCreateDataBase()
