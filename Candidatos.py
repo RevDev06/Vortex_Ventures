@@ -3,9 +3,9 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
-class VPuesto(QWidget):
+class vpuesto(QWidget):
     def __init__(self):
-        super(VPuesto, self).__init__()
+        super(vpuesto, self).__init__()
         self.fila = 0
         self.columna = 2
         self.generartabla()
@@ -347,7 +347,7 @@ class aplicacion(QMainWindow):
         super(aplicacion, self).__init__()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.apilar=QStackedWidget(self)
-        self.pag1=VPuesto()
+        self.pag1=vpuesto()
         self.candidatollenar=agregacandidato1()
         self.detalles=ventanaDetalles()
         self.edit=ventanaedit()
