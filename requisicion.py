@@ -210,12 +210,19 @@ class vtn(QWidget):
               vacante_button6.toggled.connect(self.on_toggle)
 
        ##botton de enviar
+              cancelar_button = QPushButton(self)
+              cancelar_button.setText("Cancelar")
+              cancelar_button.setFont(QFont('Arial',10))
+              cancelar_button.setGeometry(180, 330, 100, 35)
+              cancelar_button.clicked.connect(self.back_home)
+
               enviar_button = QPushButton(self)
               enviar_button.setText("Enviar Requisición")
               enviar_button.setFont(QFont('Arial',10))
-              enviar_button.resize(120,35)
-              enviar_button.move(20,330)
+              enviar_button.setGeometry(20, 330, 140, 35)
        ##radiobutton
+
+
        def on_toggle(self):
               sender =self.sender()##esto se hace para que se realice la funcion de poder seleccionar
               if sender.isChecked():##y que cuando se seleccione se muestre por consola
