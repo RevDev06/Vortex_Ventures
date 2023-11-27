@@ -2,8 +2,10 @@ import sys
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
+from unionVentanas import VPuesto
 from requisicion import vtn 
 from analisis import v
+from vacantes import Vpuesto
 from area_catalogo import VArea
 from carrera_catalogo import Vcarrera
 from documentossoli_catalogo import Vdocumentossoli
@@ -68,7 +70,7 @@ class HomeWindow(QMainWindow):
         file_contratacion.setFont(QFont('Arial',9))
 ##puesto
         action_p = QAction("&PUESTO",self)
-        action_p.triggered.connect(self.redirect_to_window)
+        action_p.triggered.connect(self.puesto)
         file_contratacion.addAction(action_p)
 ##requisicion
         action_requisicion = QAction("&REQUISICION",self)
@@ -80,7 +82,7 @@ class HomeWindow(QMainWindow):
         file_contratacion.addAction(action_aut)
 ##vacantes
         action_vac = QAction("&VACANTES",self)
-        action_vac.triggered.connect(self.redirect_to_window)
+        action_vac.triggered.connect(self.vacantes)
         file_contratacion.addAction(action_vac)
 ##candidatos
         action_can = QAction("&CANDIDATOS",self)
@@ -126,6 +128,14 @@ class HomeWindow(QMainWindow):
         action_ds.triggered.connect(self.documentossoli)
         file_catalogos.addAction(action_ds)
         
+    def puesto(self):
+        # Logica para enviar a otras ventanas
+        if not hasattr(self, 'v_puesto'):
+            self.v_puesto= VPuesto()
+            self.v_puesto.show()
+            self.close()
+        else:
+            self.show()
     def requisicion(self):
         # Logica para enviar a otras ventanas
         if not hasattr(self, 'vtn_requisicion'):
@@ -143,6 +153,14 @@ class HomeWindow(QMainWindow):
         else:
             self.show()
 
+    def vacantes(self):
+        # Logica para enviar a otras ventanas
+        if not hasattr(self, 'v_vacantes'):
+            self.v_vacantes= Vpuesto()
+            self.v_vacantes.show()
+            self.close()
+        else:
+            self.show()
     def area(self):
         if not hasattr(self,'v_area'):
             self.v_area=VArea()
@@ -209,7 +227,7 @@ class HomeWindow(QMainWindow):
 
     def redirect_to_window(self):
         self.vtn_catalogos
-        
+
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
