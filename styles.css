@@ -97,3 +97,10 @@ HomeWindow {
     font-weight: bold;
     font-family: "Roboto", Arial, Helvetica, sans-serif;    
 }
+
+#username_feedback {
+    color: #0f212b;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;    
+}

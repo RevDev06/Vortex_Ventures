@@ -88,7 +88,7 @@ class LoginScreen(QMainWindow):
 
         self.tittle.setStyleSheet("color:#251d1c;")
         self.username_label.setStyleSheet(" color:#816d50;")
-        self.password_label.setStyleSheet(";color:#816d50;")
+        self.password_label.setStyleSheet(" color:#816d50;")
 
         self.login_button.setStyleSheet("background-color: #43423b;color:#d2c499;border-radius: 5px;")
         self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
@@ -104,6 +104,8 @@ class LoginScreen(QMainWindow):
 
         
     def login(self):
+        self.password_feedback.setText("")
+        self.username_feedback.setText("")
         username = self.username_input.text()
         password = self.password_input.text()
         sql = "SELECT nombre, contrasenia FROM usuarios WHERE nombre = %s"
@@ -112,7 +114,7 @@ class LoginScreen(QMainWindow):
         if result is None:
             print("Nombre de usuario incorrecto. Vuelve a intentarlo")
             self.username_feedback.setText(
-                "Nombre de usuario incorrecto. Vuelve a intentarlo")
+                "Nombre de usuario incorrecto.")
         else:
             user = result[0]
             db_password = result[1]
