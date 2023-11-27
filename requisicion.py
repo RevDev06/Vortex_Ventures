@@ -228,6 +228,15 @@ class vtn(QWidget):
               enviar_button.setGeometry(20, 330, 140, 35)
        ##radiobutton
 
+       def back_home(self):
+              from home import HomeWindow
+              if not hasattr(self, 'home_window'):
+                     self.home_window = HomeWindow()
+                     self.home_window.show()
+                     self.close()
+              else:
+                     self.show()
+
 
        def on_toggle(self):
               sender =self.sender()##esto se hace para que se realice la funcion de poder seleccionar

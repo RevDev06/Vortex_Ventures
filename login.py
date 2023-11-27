@@ -121,7 +121,7 @@ class LoginScreen(QMainWindow):
                 print("Bienvenido")
                 self.username_feedback.setText("Usuario correcto")
                 self.password_feedback.setText("Contraseña correcta")
-                if not hasattr(self, 'register'):
+                if not hasattr(self, 'home_window'):
                     self.home_window = HomeWindow()
                     self.home_window.show()
                     self.close()
