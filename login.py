@@ -94,6 +94,7 @@ class LoginScreen(QMainWindow):
         self.register_button.setStyleSheet("background-color: #816d50;color:#122324; border-radius: 5px;")
 
 
+        
     def mousePressEvent(self, event):
         self.dragPos = event.globalPosition().toPoint()
 
@@ -130,6 +131,7 @@ class LoginScreen(QMainWindow):
                 
             else:
                 self.password_feedback.setText("Contraseña incorrecta.")
+                self.password_feedback.setStyleSheet("color:#0f212b;")
                 print("Acesso denegado")
         return False
 

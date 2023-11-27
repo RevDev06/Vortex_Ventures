@@ -3,9 +3,9 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
-class Vhabilidad(QWidget):
+class Vdocumentossoli(QWidget):
     def __init__(self):
-        super(Vhabilidad, self).__init__()
+        super(Vdocumentossoli, self).__init__()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.fila = 0
         self.columna = 3
@@ -19,6 +19,7 @@ class Vhabilidad(QWidget):
         window_x = (screen_geometry.width() - window_width) // 2
         window_y = (screen_geometry.height() - window_height) // 2
         self.setGeometry(window_x, window_y, window_width, window_height)
+
         # Crear un degradado de color para el fondo
         gradient = QLinearGradient(0, 0, self.width(), 0)
         gradient.setColorAt(0, QColor("#0e212c"))  # Color más claro a la izquierda
@@ -47,8 +48,8 @@ class Vhabilidad(QWidget):
         for i in range(self.columna):
             self.tableWidget.setColumnWidth(i, column_width)
 
-        self.agregar = QPushButton('Agregar Habilidad')
-        self.agregar.setFixedSize(130, 30)
+        self.agregar = QPushButton('Agregar Documento Solicitado')
+        self.agregar.setFixedSize(180, 30)
         self.agregar.clicked.connect(self.contra)
 
         self.editar = QPushButton('Editar')
@@ -81,7 +82,7 @@ class Vhabilidad(QWidget):
         ventanita = emergente2()
         result = ventanita.exec()
         if result == QDialog.DialogCode.Accepted:
-            nombre = ventanita.habilidades.text()
+            nombre = ventanita.docusoli.text()
             id = ventanita.Id.text()
             id2=ventanita.Id2.text()
             self.buscar(id2,nombre,id)
@@ -95,7 +96,7 @@ class Vhabilidad(QWidget):
             else:
                 stilo = """QDialog {background-color: #072d44}"""
                 self.setStyleSheet(stilo)
-                QMessageBox.warning(self, "", "No esxiste ninguna habilidad con esa Id")
+                QMessageBox.warning(self, "", "No esxiste ningun documento solicitado con esa Id")
 
     def cambio(self):
         pass
@@ -104,9 +105,9 @@ class Vhabilidad(QWidget):
         ventanita = emergente()
         result = ventanita.exec()
         if result == QDialog.DialogCode.Accepted:
-            habi = ventanita.habilidades.text()
+            docusoli = ventanita.docusoli.text()
             id = ventanita.Id.text()
-            self.agregar_fila(habi, id)
+            self.agregar_fila(docusoli, id)
 
     def crearfila(self,nombre):
         nombre, id, accepted = self.pedir_nombre()
@@ -149,9 +150,9 @@ class emergente(QDialog):
         self.close_button.clicked.connect(self.reject)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 230) 
-        self.habilidadesP=QLabel('Ingrese la habilidad:',self)
-        self.habilidadesP.setGeometry(10,25,160,15)
-        self.habilidades=QLineEdit(self)
+        self.docusoli=QLabel('Ingrese el medio de publicidad:',self)
+        self.docusoli.setGeometry(10,25,160,15)
+        self.docusoli=QLineEdit(self)
         self.Idl = QLabel('Ingrese el Id:', self)
         self.Idl.setGeometry(10,85,160,15)
         self.Id = QLineEdit(self)  
@@ -160,16 +161,16 @@ class emergente(QDialog):
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
-        layout.addWidget(self.habilidades)
+        layout.addWidget(self.docusoli)
         layout.addWidget(self.Id)
         layout.addWidget(verifica)
         self.setLayout(layout)
 
     def campos(self):
-        habilidad_texto = self.habilidades.text().strip()
+        docusoli_texto = self.docusoli.text().strip()
         id_texto = self.Id.text().strip()
 
-        if not habilidad_texto or not id_texto:
+        if not docusoli_texto or not id_texto:
             stilo = """QDialog {background-color: #072d44}"""
             self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Ambos campos deben ser completados.")
@@ -184,30 +185,30 @@ class emergente2(QDialog):
         self.close_button.clicked.connect(self.reject)
         self.close_button.setGeometry(220, 0, 30, 30)
         self.setFixedSize(250, 230) 
-        self.habilidadesP=QLabel('Ingrese la nueva habilidad:',self)
-        self.habilidadesP.setGeometry(10,15,200,15)
-        self.habilidades=QLineEdit(self)
+        self.docusoliP=QLabel('Ingrese el nuevo documento solicitado:',self)
+        self.docusoliP.setGeometry(10,15,250,15)
+        self.docusoli=QLineEdit(self)
         self.Idl = QLabel('Ingrese el nuevo Id:', self)
         self.Idl.setGeometry(10,62,160,15)
         self.Id = QLineEdit(self)  
-        self.Idl2=QLabel('Ingrese el id de la habilidad a cambiar:', self)
-        self.Idl2.setGeometry(10,108,220,15)
+        self.Idl2=QLabel('Ingrese el id del documento solicitado a cambiar:', self)
+        self.Idl2.setGeometry(10,108,250,15)
         self.Id2 = QLineEdit(self)  
         verifica = QPushButton('Verificar', self)
         stilo = """QDialog {background-color: #072d44}"""
         self.setStyleSheet(stilo)
         verifica.clicked.connect(self.campos)
         layout = QVBoxLayout()
-        layout.addWidget(self.habilidades)
+        layout.addWidget(self.docusoli)
         layout.addWidget(self.Id)
         layout.addWidget(self.Id2)
         layout.addWidget(verifica)
         self.setLayout(layout)
 
     def campos(self):
-        habilidad_texto = self.habilidades.text().strip()
+        docusoli_texto = self.docusoli.text().strip()
         id_texto = self.Id.text().strip()
-        if not habilidad_texto or not id_texto:
+        if not docusoli_texto or not id_texto:
             stilo = """QDialog {background-color: #072d44}"""
             self.setStyleSheet(stilo)
             QMessageBox.warning(self, "Campos Vacíos", "Los campos deben ser completados.")
@@ -249,6 +250,6 @@ if __name__ == '__main__':
         style = f.read()
     app = QApplication(sys.argv)##administrar todo lo que se haga en la venta
     app.setStyleSheet(style)  # Aplicar el estilo global
-    ventana = Vhabilidad()
+    ventana = Vdocumentossoli()
     ventana.show()
     sys.exit(app.exec())
