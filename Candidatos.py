@@ -21,7 +21,7 @@ class vpuesto(QWidget):
         for i in range(self.columna):
             self.tableWidget.setColumnWidth(i, column_width)
 
-        self.agregar = QPushButton('Agregar Puesto')
+        self.agregar = QPushButton('Agregar Candidato')
         self.agregar.setFixedSize(100, 30)
 
         self.detalles=QPushButton('Detalles')
