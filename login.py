@@ -50,8 +50,8 @@ class LoginScreen(QMainWindow):
         self.username_input.setGeometry(420, window_height // 2 - 200, 200, 30)
 
         self.username_feedback = QLabel("", self)
-        self.username_feedback.setGeometry(
-            430, window_height // 2 - 170, 300, 30)
+        self.username_feedback.setGeometry(430, window_height // 2 - 170, 300, 30)
+        self.username_feedback.setObjectName("username_feedback")
 
         self.password_label = QLabel("Password:", self)
         self.password_label.setGeometry(340, window_height // 2 - 100, 100, 30)
@@ -62,8 +62,8 @@ class LoginScreen(QMainWindow):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.password_feedback = QLabel("", self)
-        self.password_feedback.setGeometry(
-            430, window_height // 2 - 70, 300, 30)
+        self.password_feedback.setGeometry(430, window_height // 2 - 70, 300, 30)
+        self.password_feedback.setObjectName("password_feedback")
 
         self.login_button = QPushButton("Login", self)
         self.login_button.setGeometry(440, window_height // 2 - 20, 120, 40)
@@ -106,17 +106,16 @@ class LoginScreen(QMainWindow):
     def login(self):
         username = self.username_input.text()
         password = self.password_input.text()
-        sql = "SELECT contrasenia, nombre FROM usuarios WHERE nombre = %s"
+        sql = "SELECT nombre, contrasenia FROM usuarios WHERE nombre = %s"
         con_db.cursor.execute(sql, (username,))
         result = con_db.cursor.fetchone()
-        db_password = result[0]
-        user = result[1]
-
         if result is None:
             print("Nombre de usuario incorrecto. Vuelve a intentarlo")
             self.username_feedback.setText(
                 "Nombre de usuario incorrecto. Vuelve a intentarlo")
         else:
+            user = result[0]
+            db_password = result[1]
             if password == db_password:
                 print("Bienvenido")
                 self.username_feedback.setText("Usuario correcto")
@@ -130,6 +129,7 @@ class LoginScreen(QMainWindow):
                 
             else:
                 self.password_feedback.setText("Contraseña incorrecta.")
+                
                 print("Acesso denegado")
         return False
 
