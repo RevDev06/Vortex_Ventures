@@ -4,6 +4,10 @@ from PyQt6.QtGui import *
 import sys
 from test_db import TestDatabase
 
+con_db = database()
+con_db.verifAndCreateDataBase()
+con_db.select_db()
+
 class Window(QWidget):
     def __init__(self):
         super().__init__()

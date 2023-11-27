@@ -8,7 +8,6 @@ from login import LoginScreen
 
 
 con_db = database()
-con_db.verifAndCreateDataBase()
 con_db.select_db()
 
 
