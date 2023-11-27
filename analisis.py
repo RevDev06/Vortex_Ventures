@@ -2,6 +2,12 @@ import sys
 from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QLineEdit, QPushButton)
 from PyQt6.QtGui import QFont , QBrush, QLinearGradient, QPainter, QColor,QPalette
 from PyQt6.QtCore import QSize,Qt,QLocale
+from conex_db import database 
+
+con_db = database()
+con_db.verifAndCreateDataBase()
+con_db.select_db()
+
 ##crear una ventana
 class v(QWidget):
       def __init__(self):
@@ -10,12 +16,7 @@ class v(QWidget):
 
       def inicializarUI(self):
             #configurar ventana
-            screen_geometry = QApplication.primaryScreen().availableGeometry()
-            window_width = 1000
-            window_height = 600
-            window_x = (screen_geometry.width() - window_width) // 2
-            window_y = (screen_geometry.height() - window_height) // 2
-            self.setGeometry(window_x, window_y, window_width, window_height)
+            self.setGeometry(100,50,1000,800)
 
             self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
@@ -127,8 +128,30 @@ class v(QWidget):
             button.setFont(QFont('Arial',10))
             button.resize(120,35)
             button.move(20,304)
+            button.clicked.connect(self.BDInsert)
 
-            
+      def BDInsert(self):
+            folio = self.folio_input.text()
+            puesto = self.puesto_vacante_input.text()
+            nv = self.n_vacantes_input.text()
+            r = self.revisado_input.text()
+            a = self.autorizado_input.text()
+
+            sql = "SELECT requisicion_folio FROM autorizacion WHERE requisicion_folio = %s"
+            con_db.cursor.execute(sql, (folio,))
+            result = con_db.cursor.fetchone()
+            if result is None:
+                  print("Añadir")
+                  sql = "INSERT INTO autorizacion ( id, revi_por, autori_por,requisicion_folio) VALUES (%s, %s, %s,%s)"
+                  values = (1, r, a, folio)
+                  con_db.cursor.execute(sql, values)
+                  con_db.comit()
+                  print("Se pudo")
+                  #Se indica si el registro fue exitoso
+                  print("requisitos añadidos correctamente.")
+            else:
+                  print("Ya existe")
+
 
 if __name__ == '__main__':
    with open('styles.css', 'r') as f:
