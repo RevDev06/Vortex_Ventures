@@ -6,6 +6,7 @@ from unionVentanas import VPuesto
 from requisicion import vtn 
 from analisis import v
 from vacantes import Vpuesto
+from Candidatos import vpuesto
 from area_catalogo import VArea
 from carrera_catalogo import Vcarrera
 from documentossoli_catalogo import Vdocumentossoli
@@ -86,14 +87,14 @@ class HomeWindow(QMainWindow):
         file_contratacion.addAction(action_vac)
 ##candidatos
         action_can = QAction("&CANDIDATOS",self)
-        action_can.triggered.connect(self.redirect_to_window)
+        action_can.triggered.connect(self.candidatos)
         file_contratacion.addAction(action_can)
        
         file_catalogos = menu_bar.addMenu("&CATALOGOS")
         file_catalogos.setFont(QFont('Arial',9))
 #area
         action_a = QAction("&CANDIDATOS",self)
-        action_a.triggered.connect(self.redirect_to_window)
+        action_a.triggered.connect(self.candidatos)
         file_catalogos.addAction(action_a)
 #carrera
         action_ca = QAction("&AREA",self)
@@ -158,6 +159,14 @@ class HomeWindow(QMainWindow):
         if not hasattr(self, 'v_vacantes'):
             self.v_vacantes= Vpuesto()
             self.v_vacantes.show()
+            self.close()
+        else:
+            self.show()
+    def candidatos(self):
+        # Logica para enviar a otras ventanas
+        if not hasattr(self, 'v_candidatos'):
+            self.v_candidatos= vpuesto()
+            self.v_candidatos.show()
             self.close()
         else:
             self.show()
