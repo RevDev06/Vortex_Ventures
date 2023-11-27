@@ -9,6 +9,13 @@ class vpuesto(QWidget):
         self.fila = 0
         self.columna = 2
         self.generartabla()
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        screen_geometry = QApplication.primaryScreen().availableGeometry()
+        window_width = 1000
+        window_height = 800
+        window_x = (screen_geometry.width() - window_width) // 2
+        window_y = (screen_geometry.height() - window_height) // 2
+        self.setGeometry(window_x, window_y, window_width, window_height)
 
     def generartabla(self):
         self.tableWidget = QTableWidget()
@@ -21,8 +28,8 @@ class vpuesto(QWidget):
         for i in range(self.columna):
             self.tableWidget.setColumnWidth(i, column_width)
 
-        self.agregar = QPushButton('Agregar Puesto')
-        self.agregar.setFixedSize(100, 30)
+        self.agregar = QPushButton('Agregar candidato')
+        self.agregar.setFixedSize(140, 30)
 
         self.detalles=QPushButton('Detalles')
         self.detalles.setFixedSize(100, 30)
@@ -145,7 +152,7 @@ class agregacandidato1(QWidget):
         self.habili_t.setGeometry(60,400, 905, 20)
 
         self.botona_pag=QPushButton("Continuar", self)
-        self.botona_pag.setGeometry(400, 450, 70, 30)
+        self.botona_pag.setGeometry(150, 450, 80, 30)
 
         self.botoncancelar=QPushButton("Cancelar", self)
         self.botoncancelar.setGeometry(60, 450, 70, 30)
@@ -362,7 +369,7 @@ class aplicacion(QMainWindow):
     def inicializar(self):
         screen_geometry = QApplication.primaryScreen().availableGeometry()
         window_width = 1000
-        window_height = 600
+        window_height = 800
         window_x = (screen_geometry.width() - window_width) // 2
         window_y = (screen_geometry.height() - window_height) // 2
         self.setGeometry(window_x, window_y, window_width, window_height)
@@ -401,7 +408,7 @@ class aplicacion(QMainWindow):
             else:
                 stilo = """QDialog {background-color: #072d44}"""
                 self.setStyleSheet(stilo)
-                QMessageBox.warning(self, "", "No hay nada para editar")
+                QMessageBox.warning(self, "WARNING", "No hay nada para editar")
 
     def obtener_filas(self):
         return self.pag1.obtener_filas()
@@ -589,7 +596,7 @@ class ventanacontra(QDialog):
         self.setLayout(layout)
 
     def verificacontra(self):
-        if self.contra.text()=='Secret':
+        if self.contra.text()=='eladmin':
             print('si pasa')
             self.close()
             self.callback()
