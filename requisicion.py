@@ -4,7 +4,12 @@ from PyQt6.QtWidgets import (QApplication, QWidget,QLabel,QLineEdit, QPushButton
 QMessageBox, QCheckBox,QComboBox,QRadioButton)
 from PyQt6.QtGui import QFont, QBrush, QLinearGradient, QPainter, QColor,QPalette
 from PyQt6.QtCore import QSize,Qt,QLocale,QDateTime
+from conex_db import database
 ##crear una ventana
+
+con_db = database()
+con_db.verifAndCreateDataBase()
+con_db.select_db()
 
 class vtn(QWidget):
        def __init__(self):
@@ -84,6 +89,7 @@ class vtn(QWidget):
               ##addItems para poner las opciones
               self.area_solicita_input =QComboBox(self)
               self.area_solicita_input.addItems(["Elige","1","2","3"])
+              self.area_solicita_input.currentText()
               self.area_solicita_input.resize(360,24)
               self.area_solicita_input.move(310,74)
        ##fecha de elaboracion
@@ -226,7 +232,9 @@ class vtn(QWidget):
        def on_toggle(self):
               sender =self.sender()##esto se hace para que se realice la funcion de poder seleccionar
               if sender.isChecked():##y que cuando se seleccione se muestre por consola
-                     print(f'Se selecciono: {sender.text()}')##diciendo el nombre del button que se a seleccionado
+                     texto = sender.text()
+                     print(f'Se selecciono: {texto}')##diciendo el nombre del button que se a seleccionado
+                     self.valor=texto
        ##calendario
        def actualizar_fecha_hora(self,date):##subclase para la actualizacion 
               fecha_hora_actual = self.sender().selectedDate().toDateTime(fecha_elaboracion.time())##funcion para tener el tiempo actual
@@ -247,6 +255,39 @@ class vtn(QWidget):
        ##si se pone en una sola clase todos no se podran cambiar las fechas en todas las barras se pondra la misma fecha por eso se hacen en diferentes subclases pero la misma funcion 
        def mostrar_ventana(self):
               print("Mostrar vtn")
+
+       def BDInsert(self):
+              folio = self.folio_input.text()
+              area = self.area_solicita_input.currentText()
+              fe = fecha_elaboracion.date().toString("yyyy-MM-dd")
+              puesto = self.puesto_cubrir_input.currentText()
+              nps = self.nombre_input.text()
+              fr = reclutamiento.date().toString("yyyy-MM-dd")
+              fi = inicio_vacante.date().toString("yyyy-MM-dd")
+              nv = self.numero_vacante_input.text()
+              tv = self.tipo_vacante_input.currentText()
+              vgp = self.valor
+
+              sql = "SELECT folio FROM requisicion WHERE folio = %s"
+              con_db.cursor.execute(sql, (folio,))
+              result = con_db.cursor.fetchone()
+              """`v_gene_por_id` INT(5) NOT NULL,
+              `tipo_vacante_id` INT(5) NOT NULL,
+              `autorizacion_id` INT(5) NOT NULL,
+              `puesto_id` INT(5) NOT NULL,
+              `areas_id` INT(5) NOT NULL,
+              `med_public_id` INT(5) NOT NULL,"""
+              if result is None:
+                     print("Añadir")
+                     sql = "INSERT INTO requisicion (v_gene_por, tipo_vacante_id, autorizacion_id, puesto_id, areas_id, med_public_id, folio, fechaEla, nombre, puesto, area, fechaReclu, fechaInicio, num_vacantes ) VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s)"
+                     values = (1, 1, 1, 1, 1, 1, folio, fe, nps, puesto, area, fr, fi, nv )
+                     con_db.cursor.execute(sql, values)
+                     con_db.comit()
+                     print("Se pudo")
+                     #Se indica si el registro fue exitoso
+                     print("requisitos añadidos correctamente.")
+              else:
+                     print("Ya existe")
 
 if __name__ == '__main__':
        with open('styles.css', 'r') as f:
