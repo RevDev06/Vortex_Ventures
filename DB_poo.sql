@@ -5,9 +5,9 @@ USE `db_poo` ;
 -- Table `db_poo`.`autorizacion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_poo`.`autorizacion` (
-  `id` varchar(50) NOT NULL,
+  `id` varchar(50),
   `revi_por` VARCHAR(100) not NULL,
-  `autori-por` VARCHAR(100) not NULL,
+  `autori_por` VARCHAR(100) not NULL,
   `requisicion_folio` VARCHAR(10) NOT NULL);
 -- -----------------------------------------------------
 -- Table `db_poo`.`candidatos`
@@ -124,6 +124,12 @@ CREATE TABLE IF NOT EXISTS `db_poo`.`v_gene_por` (
 CREATE TABLE IF NOT EXISTS `db_poo`.`tipo_vacante` (
   `id` varchar(50) NOT NULL,
   `tipo` VARCHAR(50) Not NULL);
+  -- -----------------------------------------------------
+-- Table `db_poo`.`area`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_poo`.`area` (
+  `id` varchar(50) NOT NULL,
+  `area` VARCHAR(50) Not NULL);
 -- -----------------------------------------------------
 -- Table `db_poo`.`requisicion`
 -- -----------------------------------------------------
