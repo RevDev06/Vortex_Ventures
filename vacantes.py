@@ -3,12 +3,20 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
+
+
 class Vpuesto(QWidget):
     def __init__(self):
         super(Vpuesto, self).__init__()
         self.fila = 0
         self.columna = 2
         self.generartabla()
+        screen_geometry = QApplication.primaryScreen().availableGeometry()
+        window_width = 1000
+        window_height = 800
+        window_x = (screen_geometry.width() - window_width) // 2
+        window_y = (screen_geometry.height() - window_height) // 2
+        self.setGeometry(window_x, window_y, window_width, window_height)
 
     def generartabla(self):
         self.tableWidget = QTableWidget()
@@ -22,7 +30,7 @@ class Vpuesto(QWidget):
             self.tableWidget.setColumnWidth(i, column_width)
 
         self.agregar = QPushButton('Agregar Vacante')
-        self.agregar.setFixedSize(100, 30)
+        self.agregar.setFixedSize(140, 30)
 
         self.detalles=QPushButton('Detalles')
         self.detalles.setFixedSize(100, 30)
@@ -161,7 +169,7 @@ class Pag2(QWidget):
 
 ##botones 
         self.botona_pag=QPushButton("Finalizar y Regresar", self)
-        self.botona_pag.setGeometry(400, 450, 120, 30)
+        self.botona_pag.setGeometry(400, 450, 140, 30)
 
         self.botoncancelar=QPushButton('Cancelar',self)
         self.botoncancelar.setGeometry(110, 450, 70, 30)
@@ -611,7 +619,7 @@ class ventanacontra(QDialog):
         self.setLayout(layout)
 
     def verificacontra(self):
-        if self.contra.text()=='Secret':
+        if self.contra.text()=='eladmin':
             print('si pasa')
             self.close()
             self.callback()
