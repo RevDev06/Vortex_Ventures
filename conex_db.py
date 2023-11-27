@@ -47,13 +47,16 @@ class database:
 
             # Define the SQL statements for table creation
             sql_statements = """
+                        
+            CREATE SCHEMA IF NOT EXISTS `db_poo` DEFAULT CHARACTER SET utf8mb4 ;
+            USE `db_poo` ;
             -- -----------------------------------------------------
             -- Table `db_poo`.`autorizacion`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`autorizacion` (
               `id` varchar(50) NOT NULL,
-              `revi_por` VARCHAR(100) NULL DEFAULT NULL,
-              `autori-por` VARCHAR(100) NULL DEFAULT NULL,
+              `revi_por` VARCHAR(100) not NULL,
+              `autori-por` VARCHAR(100) not NULL,
               `requisicion_folio` VARCHAR(10) NOT NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`candidatos`
@@ -79,55 +82,55 @@ class database:
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`carrera` (
               `id` varchar(50) NOT NULL,
-              `nombre` VARCHAR(70) NULL DEFAULT NULL);
+              `nombre` VARCHAR(70) not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`doc_solicit`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`doc_solicit` (
               `id` varchar(50) NOT NULL,
-              `docum` VARCHAR(50) NULL DEFAULT NULL);
+              `docum` VARCHAR(50) not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`e_civil`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`e_civil` (
               `id` varchar(50) NOT NULL,
-              `estado` VARCHAR(50) NULL DEFAULT NULL);
+              `estado` VARCHAR(50) not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`edad`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`edad` (
               `id` varchar(50) NOT NULL,
-              `edad` VARCHAR(20) NULL DEFAULT NULL);
+              `edad` VARCHAR(20) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`escolar`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`escolar` (
               `id` varchar(50) NOT NULL,
-              `grado` VARCHAR(50) NULL DEFAULT NULL);
+              `grado` VARCHAR(50) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`g_avance`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`g_avance` (
               `id` varchar(50) NOT NULL,
-              `grado` VARCHAR(50) NULL DEFAULT NULL);
+              `grado` VARCHAR(50) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`habil`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`habil` (
               `id` varchar(50) NOT NULL,
-              `descrip` VARCHAR(70) NULL DEFAULT NULL);
+              `descrip` VARCHAR(70) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`med_public`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`med_public` (
               `id` varchar(50) NOT NULL,
-              `medio` VARCHAR(50) NULL DEFAULT NULL);
+              `medio` VARCHAR(50) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`sexo`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`sexo` (
               `id` varchar(50) NOT NULL,
-              `genero` VARCHAR(20) NULL DEFAULT NULL);
+              `genero` VARCHAR(20) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`puesto`
             -- -----------------------------------------------------
@@ -163,25 +166,25 @@ class database:
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`v_gene_por` (
               `id` varchar(50) NOT NULL,
-              `por` VARCHAR(50) NULL DEFAULT NULL);
+              `por` VARCHAR(50) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`tipo_vacante`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`tipo_vacante` (
               `id` varchar(50) NOT NULL,
-              `tipo` VARCHAR(50) NULL DEFAULT NULL);
+              `tipo` VARCHAR(50) Not NULL);
             -- -----------------------------------------------------
             -- Table `db_poo`.`requisicion`
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`requisicion` (
               `folio` VARCHAR(10) NOT NULL,
-              `fechaEla` DATE NULL DEFAULT NULL,
-              `nombre` VARCHAR(50) NULL DEFAULT NULL,
-              `puesto` VARCHAR(50) NULL DEFAULT NULL,
-              `area` VARCHAR(50) NULL DEFAULT NULL,
-              `fechaReclu` DATE NULL DEFAULT NULL,
-              `fechaInicio` DATE NULL DEFAULT NULL,
-              `num_vacantes` varchar(50) NULL DEFAULT NULL,
+              `fechaEla` DATE not NULL,
+              `nombre` VARCHAR(50) not NULL,
+              `puesto` VARCHAR(50) not NULL,
+              `area` VARCHAR(50) not NULL,
+              `fechaReclu` DATE not NULL,
+              `fechaInicio` DATE not NULL,
+              `num_vacantes` varchar(50) not NULL,
               `v_gene_por` varchar(50) NOT NULL,
               `tipo_vacante_id` varchar(50) NOT NULL,
               `autorizacion_id` varchar(50) NOT NULL,
@@ -194,9 +197,9 @@ class database:
             -- -----------------------------------------------------
             CREATE TABLE IF NOT EXISTS `db_poo`.`usuarios` (
               `id` INT(10) NOT NULL AUTO_INCREMENT,
-              `correo` VARCHAR(100) NULL DEFAULT NULL,
-              `nombre` VARCHAR(50) NULL DEFAULT NULL,
-              `contrasenia` VARCHAR(255) NULL DEFAULT NULL,
+              `correo` VARCHAR(100) not NULL,
+              `nombre` VARCHAR(50) Not NULL,
+              `contrasenia` VARCHAR(255) not NULL,
               PRIMARY KEY (`id`));
             -- -----------------------------------------------------
             -- Table `db_poo`.`vacantes`
@@ -206,6 +209,7 @@ class database:
 
             use db_poo;
             insert into usuarios(nombre, correo, contrasenia) values ('mayrin', 'mayrinreyes1707@gmail.com', '12345');
+
             """
 
             # Execute the SQL statements
